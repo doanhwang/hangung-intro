@@ -543,81 +543,237 @@ body{
     <button class="tab-btn" onclick="mTab(3)" id="mtab-3">논문 근거</button>
   </div>
 
-  <!-- 패널 0: 방송 제작 -->
+  <!-- 패널 0: 방송 제작 — 3개 화면 세로 배치 -->
   <div id="mpanel-0" class="reveal r3">
+
+    <!-- 화면 구분 레이블 -->
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+      <div style="width:20px;height:20px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--navy);flex-shrink:0;">1</div>
+      <div style="font-size:12px;font-weight:600;color:var(--gold-light);">나만의 방송 만들기 — DJ 설정</div>
+    </div>
+
+    <!-- 화면 1: 헤더 + 방송구성 + DJ 선택 -->
     <div class="screen-card" style="font-family:'Noto Sans KR',sans-serif;">
       <div class="browser-bar">
         <div class="browser-dots"><span style="background:#ff5f57;"></span><span style="background:#febc2e;"></span><span style="background:#28c840;"></span></div>
         <div class="browser-url">radio.life-os.ai / create</div>
       </div>
       <div style="background:white;">
-        <!-- 헤더 -->
         <div style="background:linear-gradient(135deg,#0d1b3e,#1a3a6e);padding:14px 16px 12px;">
           <div style="font-size:8px;color:rgba(255,255,255,.5);letter-spacing:.08em;margin-bottom:3px;">AI LIFE RADIO OS · BLOSSOM W.A.Y.</div>
           <div style="font-size:18px;font-weight:700;color:white;margin-bottom:3px;">나만의 방송 만들기</div>
           <div style="font-size:10px;color:rgba(255,255,255,.55);">사연을 쓸수록 AI DJ가 당신을 더 깊이 알아갑니다</div>
+          <div style="font-size:8px;color:rgba(255,255,255,.3);margin-top:4px;">Gemini 2.5 Flash · Google TTS · SUNO · Supabase</div>
+        </div>
+        <!-- 탭 -->
+        <div style="display:flex;border-bottom:1px solid #e8eaf0;">
+          <div style="flex:1;padding:9px;text-align:center;font-size:11px;font-weight:700;color:#1a2340;border-bottom:2px solid #1a2340;">방송 만들기</div>
+          <div style="flex:1;padding:9px;text-align:center;font-size:11px;color:#7a869a;">방송 이력</div>
+          <div style="flex:1;padding:9px;text-align:center;font-size:11px;color:#7a869a;">나의 감정</div>
         </div>
         <!-- 방송 구성 -->
         <div style="padding:12px 14px;border-bottom:1px solid #f0f1f5;">
           <div style="font-size:10px;font-weight:600;color:#1a2340;margin-bottom:8px;">방송 구성</div>
           <div style="display:flex;align-items:center;gap:4px;">
-            <div style="flex:1;text-align:center;padding:8px 4px;background:#f8f9fc;border-radius:8px;"><div style="font-size:14px;margin-bottom:2px;">▶</div><div style="font-size:8px;color:#7a869a;">오프닝</div></div>
+            <div style="flex:1;text-align:center;padding:8px 4px;background:#f8f9fc;border-radius:8px;"><div style="font-size:14px;margin-bottom:2px;">▶</div><div style="font-size:8px;color:#7a869a;">오프닝</div><div style="font-size:6px;color:#bbb;margin-top:1px;">BGM→DJ</div></div>
             <div style="font-size:12px;color:#bbb;">→</div>
-            <div style="flex:1;text-align:center;padding:8px 4px;background:#f8f9fc;border-radius:8px;"><div style="font-size:14px;margin-bottom:2px;">✉</div><div style="font-size:8px;color:#7a869a;">사연</div></div>
+            <div style="flex:1;text-align:center;padding:8px 4px;background:#f8f9fc;border-radius:8px;"><div style="font-size:14px;margin-bottom:2px;">✉</div><div style="font-size:8px;color:#7a869a;">사연</div><div style="font-size:6px;color:#bbb;margin-top:1px;">사연→노래</div></div>
             <div style="font-size:12px;color:#bbb;">→</div>
-            <div style="flex:1;text-align:center;padding:8px 4px;background:#f8f9fc;border-radius:8px;"><div style="font-size:14px;margin-bottom:2px;">♪</div><div style="font-size:8px;color:#7a869a;">SUNO 노래</div></div>
+            <div style="flex:1;text-align:center;padding:8px 4px;background:#f8f9fc;border-radius:8px;"><div style="font-size:14px;margin-bottom:2px;">♪</div><div style="font-size:8px;color:#7a869a;">SUNO</div><div style="font-size:6px;color:#bbb;margin-top:1px;">AI 작사·노래</div></div>
             <div style="font-size:12px;color:#bbb;">→</div>
-            <div style="flex:1;text-align:center;padding:8px 4px;background:#f8f9fc;border-radius:8px;"><div style="font-size:14px;margin-bottom:2px;">✦</div><div style="font-size:8px;color:#7a869a;">클로징</div></div>
+            <div style="flex:1;text-align:center;padding:8px 4px;background:#f8f9fc;border-radius:8px;"><div style="font-size:14px;margin-bottom:2px;">✦</div><div style="font-size:8px;color:#7a869a;">클로징</div><div style="font-size:6px;color:#bbb;margin-top:1px;">BGM→DJ</div></div>
           </div>
         </div>
-        <!-- DJ 선택 -->
-        <div style="padding:12px 14px;border-bottom:1px solid #f0f1f5;">
-          <div style="font-size:10px;font-weight:700;color:#1a2340;margin-bottom:8px;">DJ 목소리 설정</div>
+        <!-- DJ 목소리 설정 -->
+        <div style="padding:12px 14px;">
+          <div style="font-size:11px;font-weight:700;color:#1a2340;margin-bottom:8px;">DJ 목소리 설정</div>
           <div style="display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap;">
-            <div style="padding:4px 8px;background:#f0f1f5;border-radius:4px;font-size:9px;color:#1a2340;">Gemini 2.5 Pro</div>
-            <div style="padding:4px 8px;background:#e8f5ee;border-radius:4px;font-size:9px;color:#1fa885;font-weight:600;">Gemini 2.5 Flash ★추천</div>
-            <div style="padding:4px 8px;background:#f0f1f5;border-radius:4px;font-size:9px;color:#7a869a;">Chirp 3 HD</div>
+            <div style="padding:4px 9px;background:#f0f1f5;border-radius:5px;font-size:9px;color:#1a2340;">Gemini 2.5 Pro</div>
+            <div style="padding:4px 9px;background:#e8f5ee;border-radius:5px;font-size:9px;color:#1fa885;font-weight:600;">Gemini 2.5 Flash <span style="background:#1fa885;color:white;padding:1px 4px;border-radius:3px;font-size:7px;">추천</span></div>
+            <div style="padding:4px 9px;background:#f0f1f5;border-radius:5px;font-size:9px;color:#7a869a;">Chirp 3 HD</div>
+            <div style="padding:4px 9px;background:#fff5f0;border-radius:5px;font-size:9px;color:#f6703a;">Neural2</div>
+          </div>
+          <div style="display:flex;gap:5px;margin-bottom:10px;">
+            <div style="padding:4px 12px;background:#1a2340;border-radius:100px;font-size:9px;color:white;">전체</div>
+            <div style="padding:4px 12px;background:#f0f1f5;border-radius:100px;font-size:9px;color:#7a869a;">여성</div>
+            <div style="padding:4px 12px;background:#f0f1f5;border-radius:100px;font-size:9px;color:#7a869a;">남성</div>
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
-            <div style="padding:8px 6px;border:2px solid #4a90d9;border-radius:8px;background:#f0f7ff;">
-              <div style="width:20px;height:20px;border-radius:50%;background:#4a90d9;display:flex;align-items:center;justify-content:center;font-size:10px;color:white;font-weight:700;margin-bottom:4px;">A</div>
-              <div style="font-size:9px;font-weight:700;color:#1a2340;">Aoede</div>
-              <div style="font-size:8px;color:#4a90d9;margin-bottom:3px;">#따뜻한</div>
+            <div style="padding:9px 7px;border:2px solid #4a90d9;border-radius:9px;background:#f0f7ff;">
+              <div style="width:22px;height:22px;border-radius:50%;background:#4a90d9;display:flex;align-items:center;justify-content:center;font-size:11px;color:white;font-weight:700;margin-bottom:5px;">A</div>
+              <div style="font-size:10px;font-weight:700;color:#1a2340;">Aoede</div>
+              <div style="font-size:8px;color:#4a90d9;margin-bottom:4px;">#따뜻한</div>
               <div style="padding:2px 5px;background:#e74c3c;border-radius:3px;font-size:7px;color:white;display:inline-block;">AI 추천</div>
             </div>
-            <div style="padding:8px 6px;border:1px solid #e8eaf0;border-radius:8px;">
-              <div style="width:20px;height:20px;border-radius:50%;background:#7a869a;display:flex;align-items:center;justify-content:center;font-size:10px;color:white;font-weight:700;margin-bottom:4px;">E</div>
-              <div style="font-size:9px;font-weight:700;color:#1a2340;">Erinome</div>
-              <div style="font-size:8px;color:#2a9d8f;">#감성적</div>
-              <div style="padding:2px 5px;background:#2a9d8f;border-radius:3px;font-size:7px;color:white;display:inline-block;margin-top:3px;">사연 추천</div>
+            <div style="padding:9px 7px;border:1px solid #e8eaf0;border-radius:9px;">
+              <div style="width:22px;height:22px;border-radius:50%;background:#7a869a;display:flex;align-items:center;justify-content:center;font-size:11px;color:white;font-weight:700;margin-bottom:5px;">A</div>
+              <div style="font-size:10px;font-weight:700;color:#1a2340;">Autonoe</div>
+              <div style="font-size:8px;color:#7a869a;margin-bottom:4px;">#차분한</div>
+              <div style="font-size:8px;color:#4a90d9;">▶ 미리듣기</div>
             </div>
-            <div style="padding:8px 6px;border:1px solid #e8eaf0;border-radius:8px;">
-              <div style="width:20px;height:20px;border-radius:50%;background:#1a2340;display:flex;align-items:center;justify-content:center;font-size:10px;color:white;font-weight:700;margin-bottom:4px;">G</div>
-              <div style="font-size:9px;font-weight:700;color:#1a2340;">Gacrux</div>
-              <div style="font-size:8px;color:#1a2340;">#전문적</div>
+            <div style="padding:9px 7px;border:1px solid #e8eaf0;border-radius:9px;">
+              <div style="width:22px;height:22px;border-radius:50%;background:#e74c3c;display:flex;align-items:center;justify-content:center;font-size:11px;color:white;font-weight:700;margin-bottom:5px;">C</div>
+              <div style="font-size:10px;font-weight:700;color:#1a2340;">Callirrhoe</div>
+              <div style="font-size:8px;color:#e74c3c;margin-bottom:4px;">#또렷한</div>
+              <div style="font-size:8px;color:#4a90d9;">▶ 미리듣기</div>
+            </div>
+            <div style="padding:9px 7px;border:1px solid #e8eaf0;border-radius:9px;">
+              <div style="width:22px;height:22px;border-radius:50%;background:#f4a261;display:flex;align-items:center;justify-content:center;font-size:11px;color:white;font-weight:700;margin-bottom:5px;">D</div>
+              <div style="font-size:10px;font-weight:700;color:#1a2340;">Despina</div>
+              <div style="font-size:8px;color:#f4a261;margin-bottom:4px;">#활기찬</div>
+              <div style="font-size:8px;color:#4a90d9;">▶ 미리듣기</div>
+            </div>
+            <div style="padding:9px 7px;border:1px solid #e8eaf0;border-radius:9px;">
+              <div style="width:22px;height:22px;border-radius:50%;background:#2a9d8f;display:flex;align-items:center;justify-content:center;font-size:11px;color:white;font-weight:700;margin-bottom:5px;">E</div>
+              <div style="font-size:10px;font-weight:700;color:#1a2340;">Erinome</div>
+              <div style="font-size:8px;color:#2a9d8f;margin-bottom:2px;">#감성적</div>
+              <div style="padding:2px 4px;background:#2a9d8f;border-radius:3px;font-size:6px;color:white;display:inline-block;">사연 추천</div>
+            </div>
+            <div style="padding:9px 7px;border:1px solid #e8eaf0;border-radius:9px;">
+              <div style="width:22px;height:22px;border-radius:50%;background:#1a2340;display:flex;align-items:center;justify-content:center;font-size:11px;color:white;font-weight:700;margin-bottom:5px;">G</div>
+              <div style="font-size:10px;font-weight:700;color:#1a2340;">Gacrux</div>
+              <div style="font-size:8px;color:#1a2340;margin-bottom:4px;">#전문적</div>
+              <div style="font-size:8px;color:#4a90d9;">▶ 미리듣기</div>
             </div>
           </div>
-        </div>
-        <!-- 기억활력 + 사연 -->
-        <div style="padding:12px 14px;">
-          <div style="background:#f8f9fc;border-radius:8px;padding:10px;margin-bottom:8px;">
-            <div style="font-size:10px;font-weight:700;color:#1a2340;margin-bottom:4px;">☑ 기억활력 라디오로 만들기</div>
-            <div style="font-size:9px;color:#7a869a;margin-bottom:6px;">오늘의 기억 질문 — 오늘 문득 떠오른 어린 시절의 장소가 있나요?</div>
-            <div style="display:flex;gap:4px;flex-wrap:wrap;">
-              <div style="padding:3px 8px;background:#1a2340;border-radius:4px;font-size:8px;color:white;">기억 질문</div>
-              <div style="padding:3px 8px;background:#4a90d9;border-radius:4px;font-size:8px;color:white;">회상 라디오</div>
-              <div style="padding:3px 8px;background:#f0f1f5;border-radius:4px;font-size:8px;color:#7a869a;">가족 연결</div>
-            </div>
-          </div>
-          <div style="border:1px solid #e8eaf0;border-radius:8px;padding:10px;margin-bottom:8px;min-height:60px;background:#fafafa;">
-            <div style="font-size:10px;color:#bbb;">오늘 있었던 일, 하고 싶은 말, 감사한 마음…</div>
-          </div>
-          <div style="background:linear-gradient(135deg,#1a2340,#2a3f6e);border-radius:8px;padding:14px;text-align:center;">
-            <div style="font-size:13px;font-weight:700;color:white;">✦ 나만의 방송 생성하기</div>
-          </div>
+          <div style="margin-top:8px;padding:6px 10px;background:#f0f1f5;border-radius:6px;font-size:9px;color:#1a2340;">선택: Aoede · Gemini 2.5 Pro</div>
         </div>
       </div>
     </div>
+
+    <!-- 화면 2 구분 레이블 -->
+    <div style="display:flex;align-items:center;gap:8px;margin:16px 0 10px;">
+      <div style="width:20px;height:20px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--navy);flex-shrink:0;">2</div>
+      <div style="font-size:12px;font-weight:600;color:var(--gold-light);">기억활력 옵션 + 안전장치</div>
+    </div>
+
+    <!-- 화면 2: 기억활력 + 표현 안전장치 + 카카오 혜택 -->
+    <div class="screen-card" style="font-family:'Noto Sans KR',sans-serif;">
+      <div class="browser-bar">
+        <div class="browser-dots"><span style="background:#ff5f57;"></span><span style="background:#febc2e;"></span><span style="background:#28c840;"></span></div>
+        <div class="browser-url">radio.life-os.ai / create</div>
+      </div>
+      <div style="background:white;padding:12px 14px;">
+        <!-- 기억활력 옵션 -->
+        <div style="border:1px solid #e0e8f0;border-radius:10px;padding:12px;margin-bottom:10px;background:#f8fbff;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px;">
+            <div style="width:14px;height:14px;background:#4a90d9;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><div style="width:8px;height:6px;border:1.5px solid white;border-radius:1px;"></div></div>
+            <div style="font-size:11px;font-weight:700;color:#1a2340;">기억활력 라디오로 만들기</div>
+          </div>
+          <div style="font-size:9px;color:#7a869a;line-height:1.6;margin-bottom:8px;">오늘의 기억 질문, 회상 사연, 가족 연결, 음악 정서 연결 등을 방송에 반영합니다. 사용자 화면에는 의료적 표현 없이 생활형 회상 콘텐츠로 구성됩니다.</div>
+          <!-- 오늘의 기억 질문 -->
+          <div style="margin-bottom:8px;">
+            <div style="font-size:10px;font-weight:600;color:#1a2340;margin-bottom:4px;">오늘의 기억 질문</div>
+            <div style="border:1px solid #dde4f0;border-radius:7px;padding:8px 10px;background:white;display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:10px;color:#1a2340;">오늘 문득 떠오른 어린 시절의 장소가 있나요?</div>
+              <div style="font-size:13px;color:#7a869a;">∨</div>
+            </div>
+            <div style="font-size:8px;color:#7a869a;margin-top:3px;">이 질문은 방송 멘트 안에서 자연스럽게 반영됩니다.</div>
+          </div>
+          <!-- 회상 사연 단서 -->
+          <div style="margin-bottom:8px;">
+            <div style="font-size:10px;font-weight:600;color:#1a2340;margin-bottom:4px;">회상 사연 단서</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
+              <div style="border:1px solid #e8eaf0;border-radius:6px;padding:5px 8px;font-size:9px;color:#bbb;background:white;">장소: 고향집, 학교, 바닷가</div>
+              <div style="border:1px solid #e8eaf0;border-radius:6px;padding:5px 8px;font-size:9px;color:#bbb;background:white;">사람: 어머니, 친구, 선생님</div>
+              <div style="border:1px solid #e8eaf0;border-radius:6px;padding:5px 8px;font-size:9px;color:#bbb;background:white;">시절: 어린 시절, 신혼 때</div>
+              <div style="border:1px solid #e8eaf0;border-radius:6px;padding:5px 8px;font-size:9px;color:#bbb;background:white;">감각: 냄새, 소리, 온기</div>
+              <div style="border:1px solid #e8eaf0;border-radius:6px;padding:5px 8px;font-size:9px;color:#bbb;background:white;grid-column:1/-1;">물건: 도시락, 라디오, 사진</div>
+            </div>
+          </div>
+          <!-- 추천 구성 -->
+          <div>
+            <div style="font-size:10px;font-weight:600;color:#1a2340;margin-bottom:4px;">추천 구성</div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:5px;">
+              <div style="padding:4px 9px;background:#f0f1f5;border-radius:5px;font-size:9px;color:#1a2340;">가볍게 떠올리기</div>
+              <div style="padding:4px 9px;background:#f0f1f5;border-radius:5px;font-size:9px;color:#1a2340;">가족에게 전하기</div>
+              <div style="padding:4px 9px;background:#f0f1f5;border-radius:5px;font-size:9px;color:#1a2340;">저녁에 다시 듣기</div>
+            </div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap;">
+              <div style="padding:3px 7px;background:#1a2340;border-radius:4px;font-size:9px;color:white;">오늘의 기억 질문</div>
+              <div style="padding:3px 7px;background:#4a90d9;border-radius:4px;font-size:9px;color:white;">회상 사연 라디오</div>
+              <div style="padding:3px 7px;background:#f0f1f5;border-radius:4px;font-size:9px;color:#7a869a;">가족 연결 라디오</div>
+              <div style="padding:3px 7px;background:#f0f1f5;border-radius:4px;font-size:9px;color:#7a869a;">반복 청취 루틴</div>
+            </div>
+          </div>
+        </div>
+        <!-- 표현 안전장치 -->
+        <div style="border:1px solid #fbd5d5;border-radius:10px;padding:12px;background:#fff8f8;margin-bottom:10px;">
+          <div style="font-size:10px;font-weight:700;color:#e74c3c;margin-bottom:5px;">표현 안전장치 적용 중</div>
+          <div style="font-size:9px;color:#7a869a;margin-bottom:7px;">이 방송은 생활형 회상 콘텐츠로 구성되며, 의료적 진단이나 효과를 단정하지 않습니다.</div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap;">
+            <div style="padding:4px 8px;background:#fde8e8;border-radius:4px;font-size:9px;color:#e74c3c;">의료 효과 단정 금지</div>
+            <div style="padding:4px 8px;background:#fde8e8;border-radius:4px;font-size:9px;color:#e74c3c;">질병 개선 보장 금지</div>
+            <div style="padding:4px 8px;background:#fde8e8;border-radius:4px;font-size:9px;color:#e74c3c;">사용자 반응 예단 금지</div>
+          </div>
+        </div>
+        <!-- 카카오 혜택 -->
+        <div style="border:1px solid #f0e040;border-radius:10px;padding:12px;background:#fffde0;">
+          <div style="font-size:10px;font-weight:700;color:#1a2340;margin-bottom:4px;">카카오 회원 전환 혜택</div>
+          <div style="font-size:9px;color:#7a869a;line-height:1.6;margin-bottom:7px;">카카오 회원이 되면 1회성 체험을 넘어 방문 이력, 개인화, 공유, 광고·설문 혜택, 조직별 혜택을 연결할 수 있습니다.</div>
+          <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;">
+            <div style="padding:3px 8px;background:rgba(201,151,58,.15);border-radius:4px;font-size:9px;color:#8A6520;">방문 이력 관리</div>
+            <div style="padding:3px 8px;background:rgba(201,151,58,.15);border-radius:4px;font-size:9px;color:#8A6520;">개인화 방송</div>
+            <div style="padding:3px 8px;background:rgba(201,151,58,.15);border-radius:4px;font-size:9px;color:#8A6520;">공유 링크 생성</div>
+            <div style="padding:3px 8px;background:rgba(201,151,58,.15);border-radius:4px;font-size:9px;color:#8A6520;">광고·설문 혜택</div>
+            <div style="padding:3px 8px;background:rgba(201,151,58,.15);border-radius:4px;font-size:9px;color:#8A6520;">수익 공유 가능</div>
+          </div>
+          <div style="background:#f5e000;border-radius:8px;padding:10px;text-align:center;font-size:12px;font-weight:700;color:#1a2340;">카카오로 계속하기</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 화면 3 구분 레이블 -->
+    <div style="display:flex;align-items:center;gap:8px;margin:16px 0 10px;">
+      <div style="width:20px;height:20px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--navy);flex-shrink:0;">3</div>
+      <div style="font-size:12px;font-weight:600;color:var(--gold-light);">방송 관계 설정 + 사연 작성</div>
+    </div>
+
+    <!-- 화면 3: 방송 관계 설정 + 사연 + 생성 버튼 -->
+    <div class="screen-card" style="font-family:'Noto Sans KR',sans-serif;">
+      <div class="browser-bar">
+        <div class="browser-dots"><span style="background:#ff5f57;"></span><span style="background:#febc2e;"></span><span style="background:#28c840;"></span></div>
+        <div class="browser-url">radio.life-os.ai / create</div>
+      </div>
+      <div style="background:white;padding:12px 14px;">
+        <!-- 방송 관계 설정 -->
+        <div style="border:1px solid #e8eaf0;border-radius:10px;padding:12px;margin-bottom:10px;">
+          <div style="font-size:11px;font-weight:700;color:#1a2340;margin-bottom:4px;">방송 관계 설정</div>
+          <div style="font-size:9px;color:#7a869a;line-height:1.6;margin-bottom:8px;">이 방송을 누가 보내고, 누구에게 들려줄지 정합니다. 입력하면 AI DJ가 사연 작성자의 청취자를 구분해 말합니다.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px;">
+            <div style="border:1px solid #e8eaf0;border-radius:7px;padding:8px;">
+              <div style="font-size:8px;color:#7a869a;margin-bottom:2px;">듣는 사람 이름 예</div>
+              <div style="font-size:10px;color:#bbb;">어머니, 아버지, 친구</div>
+            </div>
+            <div style="border:1px solid #e8eaf0;border-radius:7px;padding:8px;">
+              <div style="font-size:8px;color:#7a869a;margin-bottom:2px;">관계 예</div>
+              <div style="font-size:10px;color:#bbb;">어머니, 아들, 친구</div>
+            </div>
+          </div>
+          <div style="border:1px solid #e8eaf0;border-radius:7px;padding:8px;margin-bottom:5px;">
+            <div style="font-size:9px;color:#bbb;">그 사람에게 전하고 싶은 한마디를 적어보세요. 예: 늘 고맙습니다.</div>
+          </div>
+          <div style="font-size:8px;color:#7a869a;">듣는 사람을 입력하면 가족 연결 라디오 관계 컨텍스트가 자동으로 적용됩니다.</div>
+        </div>
+        <!-- 사연 작성 -->
+        <div style="border:1px solid #e8eaf0;border-radius:10px;padding:12px;margin-bottom:10px;">
+          <div style="font-size:11px;font-weight:700;color:#1a2340;margin-bottom:8px;">사연 작성</div>
+          <div style="border:1px solid #e8eaf0;border-radius:8px;padding:12px;background:#fafafa;min-height:90px;">
+            <div style="font-size:10px;color:#bbb;line-height:1.7;">오늘 있었던 일, 하고 싶은 말, 감사한 마음…<br>무엇이든 자유롭게 적어보세요.</div>
+          </div>
+          <div style="text-align:right;font-size:8px;color:#bbb;margin-top:3px;">0 / 5000</div>
+          <div style="display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:8px;align-items:center;">
+            <div style="border:1px solid #e8eaf0;border-radius:7px;padding:8px 10px;font-size:10px;color:#bbb;">보내는 분 이름</div>
+            <div style="border:1px solid #e8eaf0;border-radius:7px;padding:8px 12px;font-size:10px;color:#1a2340;display:flex;align-items:center;gap:5px;">본인 <span>∨</span></div>
+          </div>
+        </div>
+        <!-- 생성 버튼 -->
+        <div style="background:linear-gradient(135deg,#1a2340,#2a3f6e);border-radius:10px;padding:16px;text-align:center;">
+          <div style="font-size:14px;font-weight:700;color:white;">✦ 나만의 방송 생성하기</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- 패널 1: 방송 수신 -->
