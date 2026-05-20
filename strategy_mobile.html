@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>한궁 AI 라디오 OS — 추진 현황</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --gold:#C9973A;
+  --gold-light:#F0D58C;
+  --gold-pale:#FBF3E0;
+  --navy:#0D1B3E;
+  --navy-mid:#1A2F5E;
+  --cream:#FAF7F0;
+  --white:#FFFFFF;
+  --emerald:#1A6B4A;
+  --text-dark:#1A1510;
+  --text-mid:#3D3020;
+}
+
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Noto Sans KR',sans-serif;
+  background:var(--navy);
+  color:var(--white);
+  overflow-x:hidden;
+  -webkit-tap-highlight-color:transparent;
+}
+
+/* ── TOP NAV ── */
+.top-nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(13,27,62,.92);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(201,151,58,.15);
+  padding:12px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.top-nav-logo{
+  font-family:'Noto Serif KR',serif;
+  font-size:13px;font-weight:700;
+  color:var(--gold-light);
+}
+.top-nav-count{
+  font-size:11px;color:rgba(255,255,255,.35);
+  letter-spacing:.08em;
+}
+
+/* ── PROGRESS BAR ── */
+#progress{
+  position:fixed;top:0;left:0;
+  height:3px;
+  background:linear-gradient(90deg,var(--gold),var(--gold-light));
+  z-index:200;
+  transition:width .3s ease;
+  width:0%;
+}
+
+/* ── SECTIONS ── */
+.section{
+  min-height:100svh;
+  padding:72px 24px 48px;
+  position:relative;
+  display:flex;flex-direction:column;justify-content:center;
+}
+
+.section-dark{background:var(--navy);}
+.section-light{background:var(--cream);}
+.section-mid{background:linear-gradient(160deg,#0d1b3e 0%,#162a52 100%);}
+
+/* ── SECTION INDICATOR ── */
+.sec-num{
+  font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.2);
+  margin-bottom:8px;
+}
+.sec-num.dark{color:rgba(13,27,62,.25);}
+
+/* ── KICKER ── */
+.kicker{
+  font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);
+  display:flex;align-items:center;gap:8px;
+  margin-bottom:12px;
+}
+.kicker::before{content:'';display:block;width:24px;height:1px;background:var(--gold);}
+.kicker.dark{color:#8A6520;}
+.kicker.dark::before{background:#8A6520;}
+
+/* ── TITLES ── */
+.title{
+  font-family:'Noto Serif KR',serif;
+  font-size:clamp(26px,6vw,36px);
+  font-weight:700;line-height:1.25;
+  color:var(--white);
+  margin-bottom:16px;
+}
+.title.dark{color:var(--navy);}
+.title em{color:var(--gold);font-style:normal;}
+
+.body-text{
+  font-size:14px;line-height:1.85;
+  color:rgba(255,255,255,.65);
+  margin-bottom:20px;
+}
+.body-text.dark{color:var(--text-mid);}
+
+.divider{width:36px;height:2px;background:var(--gold);margin-bottom:20px;}
+
+/* ── CHIPS ── */
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+.chip{
+  padding:6px 14px;border-radius:100px;
+  font-size:11px;font-weight:500;letter-spacing:.03em;
+  border:1px solid rgba(201,151,58,.3);
+  color:var(--gold-light);
+}
+.chip.active{background:rgba(201,151,58,.15);border-color:var(--gold);}
+
+/* ── CARDS ── */
+.card{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(201,151,58,.18);
+  border-radius:14px;
+  padding:18px;
+  margin-bottom:12px;
+}
+.card.light{background:var(--white);border-color:rgba(201,151,58,.2);}
+.card-num{
+  font-family:'Noto Serif KR',serif;
+  font-size:40px;font-weight:700;
+  color:rgba(201,151,58,.15);
+  line-height:1;margin-bottom:8px;
+}
+.card-title{font-size:15px;font-weight:700;color:var(--gold-light);margin-bottom:6px;}
+.card-title.dark{color:var(--navy);}
+.card-body{font-size:13px;color:rgba(255,255,255,.6);line-height:1.75;}
+.card-body.dark{color:var(--text-mid);}
+
+/* ── CHECK LIST ── */
+.check-list{list-style:none;display:flex;flex-direction:column;gap:12px;}
+.check-list li{
+  display:flex;align-items:flex-start;gap:12px;
+  font-size:13px;line-height:1.65;
+  color:rgba(255,255,255,.75);
+}
+.check-list li::before{
+  content:'✓';
+  width:22px;height:22px;
+  background:rgba(201,151,58,.15);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:var(--gold);
+  flex-shrink:0;margin-top:1px;
+}
+.check-list.dark li{color:var(--text-mid);}
+.check-list.dark li::before{background:rgba(13,27,62,.08);color:var(--navy);}
+
+/* ── HIGHLIGHT BOX ── */
+.hl-box{
+  border-left:3px solid var(--gold);
+  padding:14px 16px;
+  background:rgba(201,151,58,.06);
+  border-radius:0 10px 10px 0;
+  font-size:14px;line-height:1.75;
+  color:rgba(255,255,255,.8);
+  font-family:'Noto Serif KR',serif;
+  font-style:italic;
+  margin-bottom:16px;
+}
+.hl-box.navy{color:var(--navy);background:rgba(13,27,62,.05);}
+
+/* ── STAT ROW ── */
+.stat-row{display:flex;gap:0;margin-bottom:20px;}
+.stat-item{
+  flex:1;text-align:center;
+  padding:16px 8px;
+  border-right:1px solid rgba(201,151,58,.15);
+}
+.stat-item:last-child{border-right:none;}
+.stat-num{
+  font-family:'Noto Serif KR',serif;
+  font-size:32px;font-weight:700;
+  color:var(--gold);line-height:1;margin-bottom:4px;
+}
+.stat-label{font-size:10px;color:rgba(255,255,255,.45);letter-spacing:.04em;}
+
+/* ── TIMELINE ── */
+.timeline{display:flex;flex-direction:column;gap:0;}
+.tl-item{display:flex;gap:16px;align-items:stretch;}
+.tl-left{display:flex;flex-direction:column;align-items:center;width:24px;flex-shrink:0;}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:3px;}
+.tl-line{width:1px;background:rgba(201,151,58,.2);flex:1;margin:3px 0;}
+.tl-item:last-child .tl-line{display:none;}
+.tl-content{padding-bottom:20px;flex:1;}
+.tl-label{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
+.tl-text{font-size:13px;line-height:1.65;color:rgba(255,255,255,.7);}
+.tl-text strong{color:var(--white);}
+
+/* ── STATUS CARDS ── */
+.status-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.status-card{
+  padding:14px 12px;border-radius:12px;text-align:center;
+  background:var(--navy);border:1px solid rgba(201,151,58,.2);
+}
+.status-card.active{border-color:var(--gold);background:rgba(201,151,58,.08);}
+.status-icon{font-size:22px;margin-bottom:6px;}
+.status-title{font-size:11px;font-weight:700;color:var(--gold-light);margin-bottom:3px;}
+.status-desc{font-size:9px;color:rgba(255,255,255,.45);line-height:1.4;}
+.status-badge{
+  margin-top:8px;display:inline-block;
+  padding:2px 8px;border-radius:100px;
+  font-size:9px;font-weight:600;
+}
+.badge-done{background:rgba(26,107,74,.2);color:#6fcf97;}
+.badge-next{background:rgba(201,151,58,.2);color:var(--gold);}
+
+/* ── PILLAR CARDS ── */
+.pillar{
+  padding:20px;border-radius:14px;
+  border:1px solid rgba(201,151,58,.18);
+  margin-bottom:12px;
+  position:relative;overflow:hidden;
+}
+.pillar::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),transparent);
+}
+.pillar-icon{font-size:26px;margin-bottom:10px;}
+.pillar-title{font-size:16px;font-weight:700;color:var(--white);margin-bottom:6px;}
+.pillar-body{font-size:13px;color:rgba(255,255,255,.6);line-height:1.75;}
+.pillar-tag{
+  display:inline-block;margin-top:10px;
+  padding:4px 12px;border-radius:100px;
+  font-size:10px;font-weight:500;
+  background:rgba(201,151,58,.12);color:var(--gold-light);
+  border:1px solid rgba(201,151,58,.2);
+}
+
+/* ── FEATURE TABS ── */
+.tab-row{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;}
+.tab-btn{
+  padding:7px 14px;border-radius:100px;
+  font-size:11px;font-weight:600;cursor:pointer;
+  font-family:'Noto Sans KR',sans-serif;
+  transition:all .2s;border:1px solid rgba(201,151,58,.25);
+  background:rgba(255,255,255,.05);color:rgba(255,255,255,.55);
+}
+.tab-btn.on{background:var(--gold);color:var(--navy);border-color:transparent;}
+
+/* ── SCREEN CARD ── */
+.screen-card{
+  border-radius:14px;overflow:hidden;
+  border:1px solid rgba(201,151,58,.2);
+  box-shadow:0 8px 30px rgba(0,0,0,.4);
+  margin-bottom:16px;
+}
+.browser-bar{
+  background:#1e2230;padding:7px 12px;
+  display:flex;align-items:center;gap:8px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.browser-dots{display:flex;gap:4px;}
+.browser-dots span{width:8px;height:8px;border-radius:50%;}
+.browser-url{
+  flex:1;background:rgba(255,255,255,.06);border-radius:4px;
+  padding:3px 8px;font-size:9px;color:rgba(255,255,255,.3);
+  text-align:center;max-width:180px;margin:0 auto;
+}
+
+/* ── QUOTE ── */
+.big-quote{
+  font-family:'Noto Serif KR',serif;
+  font-size:clamp(18px,4.5vw,24px);
+  font-weight:700;line-height:1.45;
+  color:var(--white);margin-bottom:24px;
+}
+.big-quote em{color:var(--gold);font-style:normal;}
+
+/* ── BADGE ROW ── */
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;}
+.badge{
+  padding:7px 14px;border-radius:100px;
+  font-size:11px;font-weight:500;
+  background:rgba(201,151,58,.1);
+  border:1px solid rgba(201,151,58,.3);
+  color:var(--gold-light);
+}
+.badge.special{
+  background:rgba(201,151,58,.2);
+  border-color:var(--gold);color:var(--gold);
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.r1{transition-delay:.05s;}.r2{transition-delay:.1s;}.r3{transition-delay:.15s;}
+.r4{transition-delay:.2s;}.r5{transition-delay:.25s;}
+
+/* ── FOOTER ── */
+.footer{
+  background:#080F20;
+  padding:32px 24px 48px;
+  text-align:center;
+}
+.footer-logo{
+  font-family:'Noto Serif KR',serif;
+  font-size:14px;font-weight:700;
+  color:var(--gold);margin-bottom:10px;
+}
+.footer-note{font-size:11px;color:rgba(255,255,255,.3);line-height:1.7;}
+
+/* ── PASS BADGE ── */
+.pass-badge{
+  display:flex;gap:10px;align-items:flex-start;
+  padding:12px 14px;border-radius:10px;
+  background:#f0fdf4;border:1px solid #d4edda;
+  margin-bottom:8px;
+}
+.pass-badge .p-check{
+  font-size:10px;font-weight:700;color:#1fa885;
+  background:#d4edda;padding:2px 6px;border-radius:4px;
+  flex-shrink:0;margin-top:1px;
+}
+.pass-badge .p-label{font-size:12px;font-weight:600;color:#1a2340;margin-bottom:2px;}
+.pass-badge .p-val{font-size:11px;color:#7a869a;}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<nav class="top-nav">
+  <div class="top-nav-logo">한궁 AI 라디오 OS</div>
+  <div class="top-nav-count" id="nav-count">01 / 09</div>
+</nav>
+
+<!-- ══ 01: COVER ══ -->
+<section class="section section-dark" data-sec="1">
+  <div class="sec-num">한궁 AI 라디오 OS · 추진 현황</div>
+  <div style="font-family:'Noto Serif KR',serif;font-size:clamp(32px,8vw,52px);font-weight:900;color:var(--white);line-height:1.15;margin-bottom:20px;" class="reveal">
+    기술적 기반<br>구축 <span style="color:var(--gold);">완료</span>,<br>이제 시작입니다
+  </div>
+  <div style="font-size:14px;color:rgba(255,255,255,.55);font-weight:300;line-height:1.8;border-left:2px solid rgba(201,151,58,.4);padding-left:16px;margin-bottom:28px;" class="reveal r1">
+    "한궁의 옷"을 입힐 단계에 진입하였습니다.<br>인프라부터 운영 가이드라인까지 — 모든 기반이 마련되었습니다.
+  </div>
+  <div class="chip-row reveal r2">
+    <span class="chip active">인프라 구축 완료</span>
+    <span class="chip active">AI 운영 기반 확보</span>
+    <span class="chip active">방송 엔진 완성</span>
+    <span class="chip">치매예방 가이드라인</span>
+    <span class="chip">전국 단위 확장</span>
+  </div>
+</section>
+
+<!-- ══ 02: 인프라 ══ -->
+<section class="section section-dark" data-sec="2">
+  <div class="kicker reveal">01 · 가장 큰 관문</div>
+  <div class="title reveal r1">대규모 운영 인프라<br>구축 완료</div>
+  <div class="divider reveal r1"></div>
+  <div class="body-text reveal r2">단순한 시범 수준이 아닌, 향후 전국 단위 확산까지 감당할 수 있는 AI 운영 인프라가 구글과의 계약 및 연동을 통해 완료되었습니다.</div>
+  <div class="hl-box reveal r2">이제는 실제 전국 단위 운영을 전제로 움직일 수 있는 기술적 토대가 마련된 상태입니다.</div>
+  <ul class="check-list reveal r3">
+    <li>대규모 AI API 운영 환경</li>
+    <li>안정적 음성(TTS) 처리 구조</li>
+    <li>대량 사용자 대응 기반</li>
+    <li>확장 가능한 클라우드 운영 구조</li>
+    <li>전국 단위 서비스 확장 가능성</li>
+  </ul>
+  <div style="margin-top:16px;display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:rgba(26,107,74,.12);border:1px solid rgba(26,107,74,.3);border-radius:100px;font-size:12px;color:#6fcf97;font-weight:500;" class="reveal r4">
+    ✓ Google Cloud 기반 · Vertex AI 연동 완료
+  </div>
+</section>
+
+<!-- ══ 03: 기술 기반 ══ -->
+<section class="section section-light" data-sec="3">
+  <div class="kicker dark reveal">02 · 기술적 기반</div>
+  <div class="title dark reveal r1">AI 라디오 엔진,<br>실제 운영 가능한 수준</div>
+  <div class="divider reveal r1"></div>
+  <div class="card light reveal r2">
+    <div class="card-num">01</div>
+    <div class="card-title dark">개인 맞춤 방송</div>
+    <div class="card-body dark">AI 기반 1:1 라디오 방송 생성. 사연 기반 개인 맞춤 콘텐츠. 음성(TTS) 자동 방송 시스템.</div>
+  </div>
+  <div class="card light reveal r3">
+    <div class="card-num">02</div>
+    <div class="card-title dark">관계망 확산 구조</div>
+    <div class="card-body dark">방송 공유 및 관계망 확산. 관리자 운영 체계. 시범 운영 가능한 방송 생성 구조.</div>
+  </div>
+  <div class="card light reveal r4">
+    <div class="card-num">03</div>
+    <div class="card-title dark">기억활력 콘텐츠</div>
+    <div class="card-body dark">기억활력 기반 콘텐츠 운영 체계. 시니어·장애인 친화형 구조. 210편 PubMed 논문 근거 탑재.</div>
+  </div>
+  <div class="hl-box navy reveal r5">"AI 라디오 엔진 자체는 이미 완성 단계"라고 볼 수 있습니다.</div>
+</section>
+
+<!-- ══ 04: 치매예방 가이드라인 ══ -->
+<section class="section section-dark" data-sec="4">
+  <div class="kicker reveal">03 · 핵심 차별점</div>
+  <div class="title reveal r1">치매예방 운영<br>가이드라인 구축 완료</div>
+  <div class="divider reveal r1"></div>
+  <ul class="check-list reveal r2" style="margin-bottom:20px;">
+    <li>기억활력 콘텐츠 구조</li>
+    <li>회상 기반 정서 콘텐츠</li>
+    <li>표현 안전 장치</li>
+    <li>비의료적 운영 원칙</li>
+    <li>고령층 정서 보호 구조</li>
+    <li>콘텐츠 표현 가이드라인</li>
+    <li>위험 표현 필터링 체계</li>
+    <li>운영 정책 및 기준</li>
+  </ul>
+  <!-- 논문 요약 -->
+  <div class="card reveal r3" style="border-color:rgba(201,151,58,.3);">
+    <div class="card-title">📄 210편 PubMed 논문 근거</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;">
+      <div style="text-align:center;padding:8px;background:rgba(255,255,255,.05);border-radius:8px;"><div style="font-family:'Noto Serif KR',serif;font-size:20px;font-weight:700;color:var(--gold);">124</div><div style="font-size:10px;color:rgba(255,255,255,.45);">연구 논문</div></div>
+      <div style="text-align:center;padding:8px;background:rgba(255,255,255,.05);border-radius:8px;"><div style="font-family:'Noto Serif KR',serif;font-size:20px;font-weight:700;color:var(--gold);">30</div><div style="font-size:10px;color:rgba(255,255,255,.45);">메타분석</div></div>
+      <div style="text-align:center;padding:8px;background:rgba(255,255,255,.05);border-radius:8px;"><div style="font-family:'Noto Serif KR',serif;font-size:20px;font-weight:700;color:var(--gold);">29</div><div style="font-size:10px;color:rgba(255,255,255,.45);">임상시험</div></div>
+      <div style="text-align:center;padding:8px;background:rgba(255,255,255,.05);border-radius:8px;"><div style="font-family:'Noto Serif KR',serif;font-size:20px;font-weight:700;color:var(--gold);">26</div><div style="font-size:10px;color:rgba(255,255,255,.45);">체계적 문헌고찰</div></div>
+    </div>
+  </div>
+  <div class="card reveal r4" style="border-color:rgba(26,107,74,.3);background:rgba(26,107,74,.06);">
+    <div class="card-title" style="color:#6fcf97;">🛡️ 비의료 안전 포지셔닝</div>
+    <div class="card-body">치매 진단·치료·예방 효과 주장 없음. 의료적 주장 없이도 안정적 운영 가능한 원칙과 정책 구조까지 완비.</div>
+  </div>
+</section>
+
+<!-- ══ 05: 한궁의 옷 ══ -->
+<section class="section section-light" data-sec="5">
+  <div class="kicker dark reveal">04 · 다음 단계</div>
+  <div class="title dark reveal r1">'한궁의 옷'을<br>입히는 과정</div>
+  <div class="divider reveal r1"></div>
+  <div class="body-text dark reveal r2">현재 준비된 시스템은 범용 AI 플랫폼에 가까운 상태입니다. 이제부터 중요한 것은 한궁의 철학과 운영 방식, 현장 경험을 완벽히 이식하는 작업입니다.</div>
+  <div class="hl-box navy reveal r3">"한궁만의 DNA"를 현재 준비된 AI 플랫폼 위에 입혀야 합니다.</div>
+  <div class="pillar reveal r3">
+    <div class="pillar-icon">🎯</div>
+    <div class="pillar-title">지도사 운영 흐름</div>
+    <div class="pillar-body">실제 지도사의 운영 방식을 시스템에 이식합니다.</div>
+    <span class="pillar-tag">현장 실천</span>
+  </div>
+  <div class="pillar reveal r4">
+    <div class="pillar-icon">🏮</div>
+    <div class="pillar-title">경로당 현장 구조</div>
+    <div class="pillar-body">경로당 및 생활체육 현장의 실제 운영 방식을 반영합니다.</div>
+    <span class="pillar-tag">생활체육</span>
+  </div>
+  <div class="pillar reveal r5">
+    <div class="pillar-icon">🤝</div>
+    <div class="pillar-title">공동체 문화 + 장애인 참여</div>
+    <div class="pillar-body">한궁 특유의 공동체 문화와 시니어·장애인 참여 구조를 함께 설계합니다.</div>
+    <span class="pillar-tag">공동 설계</span>
+  </div>
+</section>
+
+<!-- ══ 06: 공동 설계 ══ -->
+<section class="section section-dark" data-sec="6">
+  <div class="kicker reveal">05 · 앞으로 3개월</div>
+  <div class="title reveal r1">공동 설계 과정이<br>필요합니다</div>
+  <div class="divider reveal r1"></div>
+  <div class="body-text reveal r2">이 작업은 개발실 내부만으로는 불가능합니다. 앞으로의 3개월은 단순 테스트 기간이 아니라, 한궁 전용 AI 운영체계를 함께 디자인하는 과정입니다.</div>
+  <div class="hl-box reveal r3">한궁 전용 AI 운영체계를<br>함께 디자인하는 과정</div>
+  <div class="timeline reveal r4">
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+      <div class="tl-content"><div class="tl-label">파트너 1</div><div class="tl-text"><strong>세계한궁협회</strong> — 철학·방향성 공동 수립</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+      <div class="tl-content"><div class="tl-label">파트너 2</div><div class="tl-text"><strong>전국 지도사</strong> — 현장 운영 흐름 이식</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+      <div class="tl-content"><div class="tl-label">파트너 3</div><div class="tl-text"><strong>실제 현장</strong> — 경로당·생활체육 거점</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot"></div></div>
+      <div class="tl-content"><div class="tl-label">파트너 4</div><div class="tl-text"><strong>시니어 및 장애인 사용자</strong> — 실사용자 피드백</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 07: 현재 단계 ══ -->
+<section class="section section-light" data-sec="7">
+  <div class="kicker dark reveal">06 · 현재 단계</div>
+  <div class="title dark reveal r1" style="font-size:clamp(22px,5vw,30px);">핵심 의미 —<br>지금 우리는 어디에 있는가</div>
+  <div class="divider reveal r1"></div>
+  <div class="status-grid reveal r2">
+    <div class="status-card">
+      <div class="status-icon">🏗️</div>
+      <div class="status-title">인프라</div>
+      <div class="status-desc">구글 클라우드<br>구축 완료</div>
+      <span class="status-badge badge-done">완료 ✓</span>
+    </div>
+    <div class="status-card">
+      <div class="status-icon">🤖</div>
+      <div class="status-title">AI 운영 기반</div>
+      <div class="status-desc">Vertex AI<br>연동 완료</div>
+      <span class="status-badge badge-done">완료 ✓</span>
+    </div>
+    <div class="status-card">
+      <div class="status-icon">📻</div>
+      <div class="status-title">방송 엔진</div>
+      <div class="status-desc">라디오 OS<br>구축 완료</div>
+      <span class="status-badge badge-done">완료 ✓</span>
+    </div>
+    <div class="status-card">
+      <div class="status-icon">📋</div>
+      <div class="status-title">가이드라인</div>
+      <div class="status-desc">치매예방<br>운영기준 완비</div>
+      <span class="status-badge badge-done">완료 ✓</span>
+    </div>
+  </div>
+  <div class="status-card active reveal r3" style="text-align:center;padding:18px;">
+    <div class="status-icon">🎯</div>
+    <div class="status-title">한궁화(化)</div>
+    <div class="status-desc" style="color:rgba(201,151,58,.7);">한궁 DNA 이식 — 지금 진행 중</div>
+    <span class="status-badge badge-next">→ 진행 중</span>
+  </div>
+  <div style="margin-top:16px;padding:16px 18px;background:rgba(13,27,62,.05);border-radius:12px;border-left:3px solid var(--gold);" class="reveal r4">
+    <div class="body-text dark" style="margin:0;font-size:14px;">이제 남은 것은 — <strong style="color:#8A6520;">"한궁이라는 거대한 생활체육 공동체의 옷을 입히는 일"</strong>입니다.</div>
+  </div>
+</section>
+
+<!-- ══ 08: 실제 화면 ══ -->
+<section class="section section-dark" data-sec="8" style="padding-bottom:24px;">
+  <div class="kicker reveal">실제 구현 화면 — 3가지 레이어</div>
+  <div class="title reveal r1" style="font-size:clamp(22px,5.5vw,30px);">객체로 설계되어<br>필요에 따라 재조합됩니다</div>
+  <div class="body-text reveal r2" style="font-size:13px;">관리자 등급에 따라 보이는 화면과 기능이 달라집니다. 방송 제작·수신·관리까지 모두 동일한 구조 위에서 재조합됩니다.</div>
+
+  <!-- 탭 -->
+  <div class="tab-row reveal r2" id="m-tabs">
+    <button class="tab-btn on" onclick="mTab(0)" id="mtab-0">방송 제작</button>
+    <button class="tab-btn" onclick="mTab(1)" id="mtab-1">방송 수신</button>
+    <button class="tab-btn" onclick="mTab(2)" id="mtab-2">관리자</button>
+    <button class="tab-btn" onclick="mTab(3)" id="mtab-3">논문 근거</button>
+  </div>
+
+  <!-- 패널 0: 방송 제작 -->
+  <div id="mpanel-0" class="reveal r3">
+    <div class="screen-card" style="font-family:'Noto Sans KR',sans-serif;">
+      <div class="browser-bar">
+        <div class="browser-dots"><span style="background:#ff5f57;"></span><span style="background:#febc2e;"></span><span style="background:#28c840;"></span></div>
+        <div class="browser-url">radio.life-os.ai / create</div>
+      </div>
+      <div style="background:white;">
+        <!-- 헤더 -->
+        <div style="background:linear-gradient(135deg,#0d1b3e,#1a3a6e);padding:14px 16px 12px;">
+          <div style="font-size:8px;color:rgba(255,255,255,.5);letter-spacing:.08em;margin-bottom:3px;">AI LIFE RADIO OS · BLOSSOM W.A.Y.</div>
+          <div style="font-size:18px;font-weight:700;color:white;margin-bottom:3px;">나만의 방송 만들기</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.55);">사연을 쓸수록 AI DJ가 당신을 더 깊이 알아갑니다</div>
+        </div>
+        <!-- 방송 구성 -->
+        <div style="padding:12px 14px;border-bottom:1px solid #f0f1f5;">
+          <div style="font-size:10px;font-weight:600;color:#1a2340;margin-bottom:8px;">방송 구성</div>
+          <div style="display:flex;align-items:center;gap:4px;">
+            <div style="flex:1;text-align:center;padding:8px 4px;background:#f8f9fc;border-radius:8px;"><div style="font-size:14px;margin-bottom:2px;">▶</div><div style="font-size:8px;color:#7a869a;">오프닝</div></div>
+            <div style="font-size:12px;color:#bbb;">→</div>
+            <div style="flex:1;text-align:center;padding:8px 4px;background:#f8f9fc;border-radius:8px;"><div style="font-size:14px;margin-bottom:2px;">✉</div><div style="font-size:8px;color:#7a869a;">사연</div></div>
+            <div style="font-size:12px;color:#bbb;">→</div>
+            <div style="flex:1;text-align:center;padding:8px 4px;background:#f8f9fc;border-radius:8px;"><div style="font-size:14px;margin-bottom:2px;">♪</div><div style="font-size:8px;color:#7a869a;">SUNO 노래</div></div>
+            <div style="font-size:12px;color:#bbb;">→</div>
+            <div style="flex:1;text-align:center;padding:8px 4px;background:#f8f9fc;border-radius:8px;"><div style="font-size:14px;margin-bottom:2px;">✦</div><div style="font-size:8px;color:#7a869a;">클로징</div></div>
+          </div>
+        </div>
+        <!-- DJ 선택 -->
+        <div style="padding:12px 14px;border-bottom:1px solid #f0f1f5;">
+          <div style="font-size:10px;font-weight:700;color:#1a2340;margin-bottom:8px;">DJ 목소리 설정</div>
+          <div style="display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap;">
+            <div style="padding:4px 8px;background:#f0f1f5;border-radius:4px;font-size:9px;color:#1a2340;">Gemini 2.5 Pro</div>
+            <div style="padding:4px 8px;background:#e8f5ee;border-radius:4px;font-size:9px;color:#1fa885;font-weight:600;">Gemini 2.5 Flash ★추천</div>
+            <div style="padding:4px 8px;background:#f0f1f5;border-radius:4px;font-size:9px;color:#7a869a;">Chirp 3 HD</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+            <div style="padding:8px 6px;border:2px solid #4a90d9;border-radius:8px;background:#f0f7ff;">
+              <div style="width:20px;height:20px;border-radius:50%;background:#4a90d9;display:flex;align-items:center;justify-content:center;font-size:10px;color:white;font-weight:700;margin-bottom:4px;">A</div>
+              <div style="font-size:9px;font-weight:700;color:#1a2340;">Aoede</div>
+              <div style="font-size:8px;color:#4a90d9;margin-bottom:3px;">#따뜻한</div>
+              <div style="padding:2px 5px;background:#e74c3c;border-radius:3px;font-size:7px;color:white;display:inline-block;">AI 추천</div>
+            </div>
+            <div style="padding:8px 6px;border:1px solid #e8eaf0;border-radius:8px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:#7a869a;display:flex;align-items:center;justify-content:center;font-size:10px;color:white;font-weight:700;margin-bottom:4px;">E</div>
+              <div style="font-size:9px;font-weight:700;color:#1a2340;">Erinome</div>
+              <div style="font-size:8px;color:#2a9d8f;">#감성적</div>
+              <div style="padding:2px 5px;background:#2a9d8f;border-radius:3px;font-size:7px;color:white;display:inline-block;margin-top:3px;">사연 추천</div>
+            </div>
+            <div style="padding:8px 6px;border:1px solid #e8eaf0;border-radius:8px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:#1a2340;display:flex;align-items:center;justify-content:center;font-size:10px;color:white;font-weight:700;margin-bottom:4px;">G</div>
+              <div style="font-size:9px;font-weight:700;color:#1a2340;">Gacrux</div>
+              <div style="font-size:8px;color:#1a2340;">#전문적</div>
+            </div>
+          </div>
+        </div>
+        <!-- 기억활력 + 사연 -->
+        <div style="padding:12px 14px;">
+          <div style="background:#f8f9fc;border-radius:8px;padding:10px;margin-bottom:8px;">
+            <div style="font-size:10px;font-weight:700;color:#1a2340;margin-bottom:4px;">☑ 기억활력 라디오로 만들기</div>
+            <div style="font-size:9px;color:#7a869a;margin-bottom:6px;">오늘의 기억 질문 — 오늘 문득 떠오른 어린 시절의 장소가 있나요?</div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap;">
+              <div style="padding:3px 8px;background:#1a2340;border-radius:4px;font-size:8px;color:white;">기억 질문</div>
+              <div style="padding:3px 8px;background:#4a90d9;border-radius:4px;font-size:8px;color:white;">회상 라디오</div>
+              <div style="padding:3px 8px;background:#f0f1f5;border-radius:4px;font-size:8px;color:#7a869a;">가족 연결</div>
+            </div>
+          </div>
+          <div style="border:1px solid #e8eaf0;border-radius:8px;padding:10px;margin-bottom:8px;min-height:60px;background:#fafafa;">
+            <div style="font-size:10px;color:#bbb;">오늘 있었던 일, 하고 싶은 말, 감사한 마음…</div>
+          </div>
+          <div style="background:linear-gradient(135deg,#1a2340,#2a3f6e);border-radius:8px;padding:14px;text-align:center;">
+            <div style="font-size:13px;font-weight:700;color:white;">✦ 나만의 방송 생성하기</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 패널 1: 방송 수신 -->
+  <div id="mpanel-1" style="display:none;" class="reveal r3">
+    <div class="screen-card" style="font-family:'Noto Sans KR',sans-serif;">
+      <div class="browser-bar">
+        <div class="browser-dots"><span style="background:#ff5f57;"></span><span style="background:#febc2e;"></span><span style="background:#28c840;"></span></div>
+        <div class="browser-url">radio.life-os.ai / share</div>
+      </div>
+      <div style="background:white;">
+        <div style="background:linear-gradient(135deg,#1a2e4a,#2a9d8f);padding:20px 16px 16px;">
+          <div style="font-size:8px;color:rgba(255,255,255,.5);margin-bottom:4px;">AI LIFE RADIO OS</div>
+          <div style="font-size:20px;font-weight:700;color:white;margin-bottom:4px;">당신에게 도착한<br>AI 라이프 라디오</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.65);line-height:1.55;">누군가 당신에게 방송을 전했습니다. 이야기를 듣고, 마음을 남기고, 다시 연결할 수 있습니다.</div>
+        </div>
+        <div style="padding:14px 16px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px;">
+            <div style="padding:8px;background:#f8f9fc;border-radius:7px;"><div style="font-size:8px;color:#7a869a;">받는 사람</div><div style="font-size:10px;font-weight:600;color:#1a2340;margin-top:2px;">공유받는 사람</div></div>
+            <div style="padding:8px;background:#f8f9fc;border-radius:7px;"><div style="font-size:8px;color:#7a869a;">공유 채널</div><div style="font-size:10px;font-weight:600;color:#1a2340;margin-top:2px;">kakao_link</div></div>
+          </div>
+          <div style="background:#f8f9fc;border-radius:10px;padding:12px 14px;margin-bottom:12px;">
+            <div style="font-size:10px;color:#7a869a;margin-bottom:8px;">실제 방송 듣기</div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:18px;">⏸</span>
+              <div style="font-size:10px;color:#7a869a;">0:56 / 3:16</div>
+              <div style="flex:1;height:4px;background:#e8eaf0;border-radius:2px;"><div style="width:30%;height:100%;background:#4a90d9;border-radius:2px;"></div></div>
+              <span style="font-size:14px;">🔊</span>
+            </div>
+          </div>
+          <div style="background:#4a6cf7;border-radius:10px;padding:12px;text-align:center;color:white;font-size:13px;font-weight:600;margin-bottom:10px;">방송을 들었습니다</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+            <div style="padding:8px 4px;background:#f8f9fc;border-radius:8px;text-align:center;font-size:10px;color:#1a2340;font-weight:500;">답장/<br>사연 남기기</div>
+            <div style="padding:8px 4px;background:#f8f9fc;border-radius:8px;text-align:center;font-size:10px;color:#1a2340;font-weight:500;">내 방송국<br>만들기</div>
+            <div style="padding:8px 4px;background:#f8f9fc;border-radius:8px;text-align:center;font-size:10px;color:#1a2340;font-weight:500;">다시<br>공유하기</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px;">
+      <div style="display:flex;gap:10px;align-items:flex-start;padding:12px 14px;background:rgba(255,255,255,.05);border-radius:10px;border:1px solid rgba(201,151,58,.15);">
+        <div style="font-size:18px;">🔗</div>
+        <div><div style="font-size:12px;font-weight:600;color:var(--gold-light);margin-bottom:2px;">링크 하나로 전달</div><div style="font-size:11px;color:rgba(255,255,255,.5);line-height:1.6;">앱 설치 없이 카카오톡·문자로 바로 전달. 청취가 관계망 확산 기록에 자동 반영.</div></div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start;padding:12px 14px;background:rgba(255,255,255,.05);border-radius:10px;border:1px solid rgba(201,151,58,.15);">
+        <div style="font-size:18px;">↩️</div>
+        <div><div style="font-size:12px;font-weight:600;color:var(--gold-light);margin-bottom:2px;">답장 → 새 방송 생성</div><div style="font-size:11px;color:rgba(255,255,255,.5);line-height:1.6;">사연이 접수되면 AI가 다시 방송을 만들어 순환 구조가 완성됩니다.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 패널 2: 관리자 -->
+  <div id="mpanel-2" style="display:none;" class="reveal r3">
+    <div class="screen-card" style="font-family:'Noto Sans KR',sans-serif;">
+      <div class="browser-bar">
+        <div class="browser-dots"><span style="background:#ff5f57;"></span><span style="background:#febc2e;"></span><span style="background:#28c840;"></span></div>
+        <div class="browser-url">admin.hangung-ai-radio.ai</div>
+        <div style="font-size:9px;color:rgba(201,151,58,.7);font-weight:600;">SUPER</div>
+      </div>
+      <div style="background:#f0f2f8;">
+        <!-- KPI -->
+        <div style="padding:10px 12px;background:white;border-bottom:1px solid #f0f1f5;">
+          <div style="font-size:11px;font-weight:700;color:#1a2340;margin-bottom:2px;">AI 한궁 노인 치매예방 방송국</div>
+          <div style="font-size:9px;color:#7a869a;margin-bottom:8px;">3주 MVP 운영 대시보드</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:6px;">
+            <div style="background:white;border-radius:8px;padding:8px;text-align:center;border:1px solid #e8eaf0;"><div style="font-size:8px;color:#7a869a;">총 사용자</div><div style="font-size:18px;font-weight:700;color:#1a2340;">1,284</div><div style="font-size:8px;color:#36b37e;">↑+12%</div></div>
+            <div style="background:white;border-radius:8px;padding:8px;text-align:center;border:1px solid #e8eaf0;"><div style="font-size:8px;color:#7a869a;">생성 방송</div><div style="font-size:18px;font-weight:700;color:#1a2340;">3,962</div><div style="font-size:8px;color:#36b37e;">↑+8%</div></div>
+            <div style="background:white;border-radius:8px;padding:8px;text-align:center;border:1px solid #e8eaf0;"><div style="font-size:8px;color:#7a869a;">성공률</div><div style="font-size:18px;font-weight:700;color:#1a2340;">96.4%</div><div style="font-size:8px;color:#36b37e;">↑+2.1%p</div></div>
+          </div>
+        </div>
+        <!-- 작업 큐 -->
+        <div style="padding:10px 12px;background:white;margin-top:6px;">
+          <div style="font-size:10px;font-weight:600;color:#1a2340;margin-bottom:6px;">생성 작업 큐</div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <div style="display:flex;align-items:center;gap:8px;padding:7px 8px;background:#f8f9fc;border-radius:7px;"><span style="font-size:11px;font-weight:600;color:#1a2340;min-width:40px;">김지원</span><span style="font-size:10px;color:#7a869a;flex:1;">안부 라디오</span><span style="padding:3px 8px;background:#d4edda;color:#1fa885;border-radius:4px;font-size:9px;font-weight:600;">완료</span></div>
+            <div style="display:flex;align-items:center;gap:8px;padding:7px 8px;background:#f8f9fc;border-radius:7px;"><span style="font-size:11px;font-weight:600;color:#1a2340;min-width:40px;">박세훈</span><span style="font-size:10px;color:#7a869a;flex:1;">조합원 목소리</span><span style="padding:3px 8px;background:#fff3cd;color:#f6703a;border-radius:4px;font-size:9px;font-weight:600;">처리중</span></div>
+            <div style="display:flex;align-items:center;gap:8px;padding:7px 8px;background:#f8f9fc;border-radius:7px;"><span style="font-size:11px;font-weight:600;color:#1a2340;min-width:40px;">정민아</span><span style="font-size:10px;color:#7a869a;flex:1;">자서전 시리즈</span><span style="padding:3px 8px;background:#fde8e8;color:#e74c3c;border-radius:4px;font-size:9px;font-weight:600;">실패 재시도</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 등급 안내 -->
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">
+      <div style="padding:12px 14px;background:rgba(201,151,58,.08);border-radius:10px;border:1px solid rgba(201,151,58,.25);">
+        <div style="font-size:12px;font-weight:600;color:var(--gold);margin-bottom:3px;">👑 SUPER 관리자</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.55);">논문근거·기억활력 패키지·정산/수익 포함 전체 메뉴 노출</div>
+      </div>
+      <div style="padding:12px 14px;background:rgba(255,255,255,.05);border-radius:10px;border:1px solid rgba(255,255,255,.1);">
+        <div style="font-size:12px;font-weight:600;color:rgba(255,255,255,.7);margin-bottom:3px;">🛠️ 일반 관리자</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4);">방송·사용자·캠페인 화면만 노출. 논문근거·정산 숨김.</div>
+      </div>
+      <div style="padding:12px 14px;background:rgba(255,255,255,.05);border-radius:10px;border:1px solid rgba(255,255,255,.1);">
+        <div style="font-size:12px;font-weight:600;color:rgba(255,255,255,.7);margin-bottom:3px;">📍 현장 지도사</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4);">담당 대상군 방송 생성 큐와 현황만 노출.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 패널 3: 논문 근거 -->
+  <div id="mpanel-3" style="display:none;" class="reveal r3">
+    <div class="screen-card" style="font-family:'Noto Sans KR',sans-serif;">
+      <div class="browser-bar">
+        <div class="browser-dots"><span style="background:#ff5f57;"></span><span style="background:#febc2e;"></span><span style="background:#28c840;"></span></div>
+        <div class="browser-url">admin / evidence</div>
+        <div style="font-size:9px;color:#f6703a;font-weight:600;">SUPER 전용</div>
+      </div>
+      <div style="background:white;padding:12px 14px;">
+        <div style="font-size:12px;font-weight:700;color:#1a2340;margin-bottom:8px;">Peer Review & Certification Traceability</div>
+        <!-- KPI 6개 -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px;">
+          <div style="border:1px solid #e8eaf0;border-radius:7px;padding:8px;text-align:center;"><div style="font-size:8px;color:#7a869a;">전체</div><div style="font-size:18px;font-weight:700;color:#1a2340;">210</div></div>
+          <div style="border:1px solid #e8eaf0;border-radius:7px;padding:8px;text-align:center;"><div style="font-size:8px;color:#7a869a;">리뷰완료</div><div style="font-size:18px;font-weight:700;color:#2a9d8f;">209</div></div>
+          <div style="border:1px solid #e8eaf0;border-radius:7px;padding:8px;text-align:center;"><div style="font-size:8px;color:#7a869a;">Core</div><div style="font-size:18px;font-weight:700;color:#f6703a;">50</div></div>
+        </div>
+        <!-- PASS 5개 -->
+        <div class="pass-badge">
+          <div class="p-check">PASS</div>
+          <div><div class="p-label">200개 이상 근거 등록</div><div class="p-val">209 / 200</div></div>
+        </div>
+        <div class="pass-badge">
+          <div class="p-check">PASS</div>
+          <div><div class="p-label">프로그램 모듈별 근거 연결</div><div class="p-val">5 / 5</div></div>
+        </div>
+        <div class="pass-badge">
+          <div class="p-check">PASS</div>
+          <div><div class="p-label">피어리뷰 기록 존재</div><div class="p-val">209 / 1</div></div>
+        </div>
+        <div class="pass-badge">
+          <div class="p-check">PASS</div>
+          <div><div class="p-label">핵심 근거 선별</div><div class="p-val">50 / 30</div></div>
+        </div>
+        <div class="pass-badge">
+          <div class="p-check">PASS</div>
+          <div><div class="p-label">근거-기능 직접 매핑</div><div class="p-val">209 / 50</div></div>
+        </div>
+        <!-- Claim Boundary -->
+        <div style="background:#f8f9fc;border-radius:8px;padding:10px;margin-top:4px;">
+          <div style="font-size:10px;font-weight:700;color:#1a2340;margin-bottom:5px;">Claim Boundary</div>
+          <div style="font-size:10px;color:#7a869a;line-height:1.6;">기억활력·정서 자극 효과를 주장하지 않고, 회상 대화·정서적 지지·인지건강 생활정보 설계 근거로만 사용합니다.</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:4px;display:flex;flex-direction:column;gap:8px;">
+      <div style="display:flex;gap:10px;align-items:flex-start;padding:12px 14px;background:rgba(255,255,255,.05);border-radius:10px;border:1px solid rgba(201,151,58,.2);">
+        <div style="font-size:18px;">📄</div>
+        <div><div style="font-size:12px;font-weight:600;color:var(--gold-light);margin-bottom:2px;">210편 논문이 시스템 안에 살아있습니다</div><div style="font-size:11px;color:rgba(255,255,255,.5);line-height:1.6;">각 논문이 어떤 기능 모듈에 연결됐는지 1:1 매핑 209건이 실시간 추적됩니다.</div></div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start;padding:12px 14px;background:rgba(255,255,255,.05);border-radius:10px;border:1px solid rgba(255,255,255,.1);">
+        <div style="font-size:18px;">🛡️</div>
+        <div><div style="font-size:12px;font-weight:600;color:rgba(255,255,255,.7);margin-bottom:2px;">Claim Boundary 자동 강제</div><div style="font-size:11px;color:rgba(255,255,255,.45);line-height:1.6;">논문이 있어도 치매 예방을 주장하지 않습니다. 비의료 웰니스 설계 근거로만 시스템이 강제합니다.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 09: 결론 ══ -->
+<section class="section section-dark" data-sec="9" style="min-height:90svh;">
+  <div class="kicker reveal">결론</div>
+  <div class="big-quote reveal r1">
+    이번 프로젝트는<br>단순한 AI 서비스 도입이 아닙니다.<br><em>"한궁을 AI 시대의<br>생활 공동체 플랫폼으로<br>진화시키는 시작"</em>입니다.
+  </div>
+  <div class="badge-row reveal r2">
+    <span class="badge">인프라 완료</span>
+    <span class="badge">AI 엔진 완성</span>
+    <span class="badge">210편 논문</span>
+    <span class="badge">치매예방 가이드라인</span>
+    <span class="badge special">→ 이제 한궁화(化) 시작</span>
+  </div>
+  <div style="margin-top:32px;padding-top:24px;border-top:1px solid rgba(201,151,58,.15);text-align:center;" class="reveal r3">
+    <div style="font-family:'Noto Serif KR',serif;font-size:12px;color:rgba(255,255,255,.25);line-height:1.7;">한궁 AI 라디오 OS<br>기술적 기반 구축 완료 보고</div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-logo">한궁 AI 라디오 OS</div>
+  <div class="footer-note">AI 기반 객체지향형 방송 프로그램 생성 방법 및 시스템<br>210편 PubMed 근거 · 9개 핵심 단계 · Vertex AI + GCP</div>
+</footer>
+
+<script>
+// ── 탭 기능 ──
+function mTab(n){
+  for(let i=0;i<4;i++){
+    const p=document.getElementById('mpanel-'+i);
+    const b=document.getElementById('mtab-'+i);
+    if(p) p.style.display=(i===n)?'block':'none';
+    if(b){
+      if(i===n){b.classList.add('on');}
+      else{b.classList.remove('on');}
+    }
+  }
+  // 스크롤 to panel
+  setTimeout(()=>{
+    const el=document.getElementById('mpanel-'+n);
+    if(el) el.scrollIntoView({behavior:'smooth',block:'nearest'});
+  },50);
+}
+
+// ── 스크롤 진행률 + 섹션 카운터 ──
+const sections=document.querySelectorAll('[data-sec]');
+const total=sections.length;
+
+function updateProgress(){
+  const scrolled=window.scrollY;
+  const maxScroll=document.documentElement.scrollHeight-window.innerHeight;
+  const pct=(scrolled/maxScroll)*100;
+  document.getElementById('progress').style.width=pct+'%';
+
+  // 현재 섹션 감지
+  let cur=1;
+  sections.forEach(s=>{
+    const top=s.getBoundingClientRect().top;
+    if(top<=window.innerHeight*0.5) cur=parseInt(s.dataset.sec);
+  });
+  document.getElementById('nav-count').textContent=
+    String(cur).padStart(2,'0')+' / '+String(total).padStart(2,'0');
+}
+
+// ── 스크롤 리빌 ──
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+window.addEventListener('scroll',updateProgress,{passive:true});
+updateProgress();
+</script>
+</body>
+</html>
