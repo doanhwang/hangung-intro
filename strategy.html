@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한궁 AI 라디오 OS — 추진 현황 및 향후 방향</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --gold:#C9973A;
+  --gold-light:#F0D58C;
+  --gold-pale:#FBF3E0;
+  --navy:#0D1B3E;
+  --navy-mid:#1A2F5E;
+  --navy-light:#243A72;
+  --cream:#FAF7F0;
+  --white:#FFFFFF;
+  --emerald:#1A6B4A;
+  --text-dark:#1A1510;
+  --text-mid:#3D3020;
+  --slide-w:1280px;
+  --slide-h:720px;
+}
+
+html,body{
+  width:100%;height:100%;
+  background:#111;
+  font-family:'Noto Sans KR',sans-serif;
+  overflow:hidden;
+  user-select:none;
+}
+
+/* ── 슬라이드 컨테이너 ── */
+#deck{
+  width:var(--slide-w);
+  height:var(--slide-h);
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%) scale(var(--scale,1));
+  transform-origin:center center;
+}
+
+.slide{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .5s ease;
+  overflow:hidden;
+}
+.slide.active{
+  opacity:1;
+  pointer-events:all;
+}
+
+/* ── UI CONTROLS ── */
+#controls{
+  position:fixed;
+  bottom:28px;left:50%;
+  transform:translateX(-50%);
+  display:flex;align-items:center;gap:16px;
+  z-index:200;
+}
+
+.ctrl-btn{
+  width:44px;height:44px;
+  border:1px solid rgba(201,151,58,0.4);
+  border-radius:50%;
+  background:rgba(13,27,62,0.85);
+  color:var(--gold-light);
+  font-size:1.1rem;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+  backdrop-filter:blur(8px);
+}
+.ctrl-btn:hover{
+  background:rgba(201,151,58,0.2);
+  border-color:var(--gold);
+}
+
+#slide-counter{
+  font-size:12px;
+  color:rgba(255,255,255,0.45);
+  letter-spacing:.1em;
+  min-width:60px;
+  text-align:center;
+}
+
+#progress{
+  position:fixed;
+  top:0;left:0;
+  height:3px;
+  background:linear-gradient(90deg,var(--gold),var(--gold-light));
+  transition:width .4s ease;
+  z-index:300;
+}
+
+/* ══════════════════════════════════
+   SLIDE 1 — COVER
+══════════════════════════════════ */
+#s1{background:var(--navy);}
+
+#s1::before{
+  content:'';
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 0%,rgba(201,151,58,.14) 0%,transparent 70%),
+    radial-gradient(ellipse 40% 50% at 90% 80%,rgba(201,151,58,.06) 0%,transparent 60%);
+}
+
+#s1 .s1-kicker{
+  position:absolute;top:64px;left:80px;
+  display:flex;align-items:center;gap:12px;
+  font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);
+}
+#s1 .s1-kicker::before{
+  content:'';display:block;
+  width:32px;height:1px;background:var(--gold);
+}
+
+#s1 .s1-center{
+  position:absolute;
+  top:50%;left:80px;
+  transform:translateY(-50%);
+  max-width:820px;
+}
+
+#s1 h1{
+  font-family:'Noto Serif KR',serif;
+  font-size:68px;font-weight:900;
+  color:var(--white);line-height:1.15;
+  margin-bottom:28px;
+}
+#s1 h1 span{color:var(--gold);}
+
+#s1 .s1-sub{
+  font-size:18px;color:rgba(255,255,255,.55);
+  font-weight:300;line-height:1.7;
+  max-width:580px;
+  border-left:2px solid rgba(201,151,58,.4);
+  padding-left:20px;
+}
+
+#s1 .s1-chips{
+  position:absolute;bottom:64px;left:80px;
+  display:flex;gap:12px;flex-wrap:wrap;
+}
+.chip{
+  border:1px solid rgba(201,151,58,.3);
+  border-radius:100px;
+  padding:6px 18px;
+  font-size:12px;
+  color:rgba(255,255,255,.6);
+  letter-spacing:.05em;
+}
+.chip.gold{
+  background:rgba(201,151,58,.12);
+  color:var(--gold-light);
+  border-color:rgba(201,151,58,.4);
+}
+
+#s1 .s1-deco{
+  position:absolute;
+  right:80px;top:50%;transform:translateY(-50%);
+  width:340px;height:340px;
+  border:1px solid rgba(201,151,58,.15);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+}
+#s1 .s1-deco::before{
+  content:'';
+  width:260px;height:260px;
+  border:1px solid rgba(201,151,58,.1);
+  border-radius:50%;
+  position:absolute;
+}
+#s1 .s1-deco-text{
+  font-family:'Noto Serif KR',serif;
+  font-size:96px;font-weight:900;
+  color:rgba(201,151,58,.12);
+  line-height:1;
+}
+
+/* ══════════════════════════════════
+   SLIDE BASE — LIGHT / DARK
+══════════════════════════════════ */
+.slide-light{background:var(--cream);}
+.slide-dark{background:var(--navy);}
+.slide-gold{background:var(--gold);}
+
+.s-kicker{
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold-dark,#8A6520);
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:16px;
+}
+.s-kicker.white{color:var(--gold);}
+.s-kicker::before{
+  content:'';display:block;
+  width:28px;height:1px;background:currentColor;
+}
+
+.s-title{
+  font-family:'Noto Serif KR',serif;
+  font-size:52px;font-weight:700;
+  line-height:1.2;margin-bottom:20px;
+}
+.s-title.dark{color:var(--navy);}
+.s-title.white{color:var(--white);}
+.s-title.navy-on-gold{color:var(--navy);}
+
+.s-body{
+  font-size:17px;line-height:1.85;
+  color:var(--text-mid);max-width:680px;
+}
+.s-body.white{color:rgba(255,255,255,.65);}
+
+/* layout helpers */
+.pad{padding:80px;}
+.pad-sm{padding:64px 80px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
+
+/* ── CARD ── */
+.card{
+  background:var(--white);
+  border:1px solid rgba(201,151,58,.18);
+  border-radius:16px;
+  padding:28px 24px;
+}
+.card.dark{
+  background:rgba(255,255,255,.04);
+  border-color:rgba(201,151,58,.2);
+}
+.card-num{
+  font-family:'Noto Serif KR',serif;
+  font-size:48px;font-weight:700;
+  color:rgba(201,151,58,.2);
+  line-height:1;margin-bottom:12px;
+}
+.card-title{
+  font-size:17px;font-weight:700;
+  color:var(--navy);margin-bottom:8px;
+}
+.card-title.gold{color:var(--gold-light);}
+.card-body{
+  font-size:14px;line-height:1.75;
+  color:var(--text-mid);
+}
+.card-body.muted{color:rgba(255,255,255,.55);}
+
+/* ── STAT BOX ── */
+.stat-box{text-align:center;}
+.stat-num{
+  font-family:'Noto Serif KR',serif;
+  font-size:72px;font-weight:700;
+  color:var(--gold);line-height:1;
+  margin-bottom:8px;
+}
+.stat-label{
+  font-size:14px;color:rgba(255,255,255,.5);
+  letter-spacing:.05em;
+}
+
+/* ── BADGE ── */
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(201,151,58,.1);
+  border:1px solid rgba(201,151,58,.3);
+  border-radius:100px;
+  padding:8px 20px;
+  font-size:13px;font-weight:500;
+  color:var(--gold-light);
+}
+.badge.green{
+  background:rgba(26,107,74,.12);
+  border-color:rgba(26,107,74,.3);
+  color:#6fcf97;
+}
+
+/* ── CHECK LIST ── */
+.check-list{
+  display:flex;flex-direction:column;gap:14px;
+  list-style:none;
+}
+.check-list li{
+  display:flex;align-items:flex-start;gap:14px;
+  font-size:15px;line-height:1.6;
+  color:rgba(255,255,255,.75);
+}
+.check-list li::before{
+  content:'✓';
+  width:24px;height:24px;
+  background:rgba(201,151,58,.15);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;color:var(--gold);
+  flex-shrink:0;margin-top:1px;
+}
+.check-list.dark li{color:var(--text-mid);}
+.check-list.dark li::before{
+  background:rgba(13,27,62,.08);color:var(--navy);
+}
+
+/* ── DIVIDER ── */
+.divider{
+  width:48px;height:2px;
+  background:var(--gold);
+  margin:20px 0;
+}
+
+/* ── HIGHLIGHT BOX ── */
+.hl-box{
+  border-left:3px solid var(--gold);
+  padding:16px 20px;
+  background:rgba(201,151,58,.06);
+  border-radius:0 12px 12px 0;
+  font-size:15px;line-height:1.75;
+  color:rgba(255,255,255,.8);
+  font-family:'Noto Serif KR',serif;
+  font-style:italic;
+}
+.hl-box.navy{
+  color:var(--navy);
+  background:rgba(13,27,62,.05);
+}
+
+/* ── TIMELINE ── */
+.timeline{
+  display:flex;flex-direction:column;gap:0;
+}
+.tl-item{
+  display:flex;gap:24px;align-items:stretch;
+}
+.tl-left{
+  display:flex;flex-direction:column;align-items:center;
+  width:32px;flex-shrink:0;
+}
+.tl-dot{
+  width:12px;height:12px;border-radius:50%;
+  background:var(--gold);flex-shrink:0;
+  margin-top:4px;
+}
+.tl-line{
+  width:1px;background:rgba(201,151,58,.25);
+  flex:1;margin:4px 0;
+}
+.tl-item:last-child .tl-line{display:none;}
+.tl-content{
+  padding-bottom:24px;
+}
+.tl-label{
+  font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:6px;
+}
+.tl-text{
+  font-size:15px;line-height:1.7;
+  color:rgba(255,255,255,.7);
+}
+.tl-text strong{color:var(--white);}
+
+/* ── GRID BIG TEXT ── */
+.big-quote{
+  font-family:'Noto Serif KR',serif;
+  font-size:36px;font-weight:700;
+  line-height:1.4;
+  color:var(--white);
+}
+.big-quote em{
+  color:var(--gold);font-style:normal;
+}
+
+/* ══════════════════════════════════
+   SLIDE 2 — 인프라 구축 완료
+══════════════════════════════════ */
+#s2{background:var(--navy);}
+
+/* ══════════════════════════════════
+   SLIDE 3 — 기술 기반
+══════════════════════════════════ */
+#s3{background:var(--cream);}
+
+/* ══════════════════════════════════
+   SLIDE 4 — 치매예방 가이드라인
+══════════════════════════════════ */
+#s4{background:var(--navy);}
+
+/* ══════════════════════════════════
+   SLIDE 5 — 한궁의 옷 입히기
+══════════════════════════════════ */
+#s5{background:var(--cream);}
+
+/* ══════════════════════════════════
+   SLIDE 6 — 공동 설계
+══════════════════════════════════ */
+#s6{background:var(--navy);}
+
+/* ══════════════════════════════════
+   SLIDE 7 — 현재 단계 요약
+══════════════════════════════════ */
+#s7{background:var(--cream);}
+
+/* ══════════════════════════════════
+   SLIDE 8 — 결론 (CLOSER)
+══════════════════════════════════ */
+#s8{background:var(--navy);}
+
+/* ── ANIMATIONS ── */
+.slide.active .anim{
+  animation:fadeUp .6s ease both;
+}
+.slide.active .anim-1{animation-delay:.1s;}
+.slide.active .anim-2{animation-delay:.2s;}
+.slide.active .anim-3{animation-delay:.3s;}
+.slide.active .anim-4{animation-delay:.4s;}
+.slide.active .anim-5{animation-delay:.5s;}
+.slide.active .anim-6{animation-delay:.6s;}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(16px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* slide number badge top right */
+.slide-num{
+  position:absolute;top:40px;right:80px;
+  font-size:11px;letter-spacing:.15em;
+  color:rgba(255,255,255,.2);
+}
+.slide-num.dark{color:rgba(13,27,62,.25);}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<div id="deck">
+
+  <!-- ══ SLIDE 1: COVER ══ -->
+  <div class="slide active" id="s1">
+    <div class="s1-kicker anim">한궁 AI 라디오 OS &nbsp;·&nbsp; 추진 현황 및 향후 방향</div>
+
+    <div class="s1-center">
+      <h1 class="anim anim-1">
+        기술적 기반<br>구축 <span>완료</span>,<br>이제 시작입니다
+      </h1>
+      <p class="s1-sub anim anim-2">
+        "한궁의 옷"을 입힐 단계에 진입하였습니다.<br>
+        인프라부터 운영 가이드라인까지 — 모든 기반이 마련되었습니다.
+      </p>
+    </div>
+
+    <div class="s1-chips anim anim-3">
+      <span class="chip gold">인프라 구축 완료</span>
+      <span class="chip gold">AI 운영 기반 확보</span>
+      <span class="chip gold">방송 엔진 완성</span>
+      <span class="chip">치매예방 가이드라인</span>
+      <span class="chip">전국 단위 확장 가능</span>
+    </div>
+
+    <div class="s1-deco anim anim-2">
+      <div class="s1-deco-text">AI</div>
+    </div>
+
+    <div class="slide-num">01 / 08</div>
+  </div>
+
+  <!-- ══ SLIDE 2: 인프라 ══ -->
+  <div class="slide slide-dark" id="s2">
+    <div class="pad">
+      <div class="s-kicker white anim">01 &nbsp; 가장 큰 관문</div>
+      <h2 class="s-title white anim anim-1">대규모 운영 인프라<br>구축 완료</h2>
+      <div class="divider anim anim-1"></div>
+
+      <div class="two-col" style="margin-top:36px;">
+        <div>
+          <p class="s-body white anim anim-2" style="margin-bottom:28px;">
+            단순한 시범 수준이 아닌, 향후 전국 단위 확산까지 감당할 수 있는 AI 운영 인프라가 구글과의 계약 및 연동을 통해 사실상 완료되었습니다.
+          </p>
+          <div class="hl-box anim anim-3">
+            이제는 단순한 아이디어나 프로토타입 수준이 아니라,<br>
+            실제 전국 단위 운영을 전제로 움직일 수 있는<br>기술적 토대가 마련된 상태입니다.
+          </div>
+        </div>
+
+        <div>
+          <ul class="check-list anim anim-2">
+            <li>대규모 AI API 운영 환경</li>
+            <li>안정적 음성(TTS) 처리 구조</li>
+            <li>대량 사용자 대응 기반</li>
+            <li>확장 가능한 클라우드 운영 구조</li>
+            <li>전국 단위 서비스 확장 가능성</li>
+          </ul>
+
+          <div style="margin-top:32px;" class="anim anim-3">
+            <div class="badge green">Google Cloud 기반 &nbsp;·&nbsp; Vertex AI 연동 완료</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-num">02 / 08</div>
+  </div>
+
+  <!-- ══ SLIDE 3: 기술 기반 ══ -->
+  <div class="slide slide-light" id="s3">
+    <div class="pad">
+      <div class="s-kicker anim">02 &nbsp; 기술적 기반</div>
+      <h2 class="s-title dark anim anim-1">AI 라디오 엔진,<br>실제 운영 가능한 수준</h2>
+      <div class="divider anim anim-1"></div>
+
+      <div class="three-col" style="margin-top:36px;">
+        <div class="card anim anim-2">
+          <div class="card-num">01</div>
+          <div class="card-title">개인 맞춤 방송</div>
+          <div class="card-body">AI 기반 1:1 라디오 방송 생성. 사연 기반 개인 맞춤 콘텐츠. 음성(TTS) 자동 방송 시스템.</div>
+        </div>
+        <div class="card anim anim-3">
+          <div class="card-num">02</div>
+          <div class="card-title">관계망 확산 구조</div>
+          <div class="card-body">방송 공유 및 관계망 확산. 관리자 운영 체계. 시범 운영 가능한 방송 생성 구조.</div>
+        </div>
+        <div class="card anim anim-4">
+          <div class="card-num">03</div>
+          <div class="card-title">기억활력 콘텐츠</div>
+          <div class="card-body">기억활력 기반 콘텐츠 운영 체계. 시니어·장애인 친화형 구조. 210편 PubMed 논문 근거 탑재.</div>
+        </div>
+      </div>
+
+      <div style="margin-top:36px;padding:24px 28px;background:rgba(13,27,62,.06);border-radius:14px;border-left:3px solid var(--gold);" class="anim anim-5">
+        <p style="font-family:'Noto Serif KR',serif;font-size:20px;font-weight:600;color:var(--navy);line-height:1.6;">
+          "AI 라디오 엔진 자체는 이미 완성 단계"라고 볼 수 있습니다.
+        </p>
+      </div>
+    </div>
+    <div class="slide-num dark">03 / 08</div>
+  </div>
+
+  <!-- ══ SLIDE 4: 치매예방 가이드라인 ══ -->
+  <div class="slide slide-dark" id="s4">
+    <div class="pad">
+      <div class="s-kicker white anim">03 &nbsp; 핵심 차별점</div>
+      <h2 class="s-title white anim anim-1">치매예방 운영 가이드라인<br>구축 완료</h2>
+      <div class="divider anim anim-1"></div>
+
+      <div class="two-col" style="margin-top:36px;">
+        <div>
+          <ul class="check-list anim anim-2">
+            <li>기억활력 콘텐츠 구조</li>
+            <li>회상 기반 정서 콘텐츠</li>
+            <li>표현 안전 장치</li>
+            <li>비의료적 운영 원칙</li>
+            <li>고령층 정서 보호 구조</li>
+            <li>콘텐츠 표현 가이드라인</li>
+            <li>위험 표현 필터링 체계</li>
+            <li>운영 정책 및 기준</li>
+          </ul>
+        </div>
+
+        <div class="anim anim-2">
+          <div style="display:flex;flex-direction:column;gap:20px;">
+            <div class="card dark" style="border-color:rgba(201,151,58,.25);">
+              <div class="card-title gold" style="font-size:15px;margin-bottom:10px;">📄 &nbsp;210편 PubMed 논문 근거</div>
+              <div class="card-body muted">
+                124 연구논문 + 30 메타분석 + 29 임상시험<br>+ 26 체계적 문헌고찰 + 1 국제 가이드라인
+              </div>
+            </div>
+            <div class="card dark" style="border-color:rgba(26,107,74,.3);">
+              <div class="card-title" style="color:#6fcf97;font-size:15px;margin-bottom:10px;">🛡️ &nbsp;비의료 안전 포지셔닝</div>
+              <div class="card-body muted">
+                치매 진단·치료·예방 효과 주장 없음.<br>의료적 주장 없이도 안정적 운영 가능한<br>운영 원칙과 정책 구조까지 완비.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-num">04 / 08</div>
+  </div>
+
+  <!-- ══ SLIDE 5: 한궁의 옷 ══ -->
+  <div class="slide slide-light" id="s5">
+    <div class="pad">
+      <div class="s-kicker anim">04 &nbsp; 다음 단계</div>
+      <h2 class="s-title dark anim anim-1">'한궁의 옷'을<br>입히는 과정</h2>
+      <div class="divider anim anim-1"></div>
+
+      <div class="two-col" style="margin-top:32px;">
+        <div>
+          <p class="s-body anim anim-2" style="margin-bottom:24px;">
+            현재 준비된 시스템은 범용 AI 플랫폼에 가까운 상태입니다.<br>이제부터 중요한 것은 한궁의 철학과 운영 방식, 현장 경험을 완벽히 이식하는 작업입니다.
+          </p>
+          <div class="hl-box navy anim anim-3">
+            "한궁만의 DNA"를 현재 준비된<br>AI 플랫폼 위에 입혀야 합니다.
+          </div>
+        </div>
+
+        <div class="anim anim-2">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div style="padding:16px;background:rgba(13,27,62,.05);border-radius:12px;border:1px solid rgba(201,151,58,.15);">
+              <div style="font-size:1.4rem;margin-bottom:8px;">🎯</div>
+              <div style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px;">지도사 운영 흐름</div>
+              <div style="font-size:12px;color:var(--text-mid);line-height:1.6;">실제 지도사의 운영 방식 이식</div>
+            </div>
+            <div style="padding:16px;background:rgba(13,27,62,.05);border-radius:12px;border:1px solid rgba(201,151,58,.15);">
+              <div style="font-size:1.4rem;margin-bottom:8px;">🏮</div>
+              <div style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px;">경로당 현장 구조</div>
+              <div style="font-size:12px;color:var(--text-mid);line-height:1.6;">생활체육 현장 운영 방식</div>
+            </div>
+            <div style="padding:16px;background:rgba(13,27,62,.05);border-radius:12px;border:1px solid rgba(201,151,58,.15);">
+              <div style="font-size:1.4rem;margin-bottom:8px;">🤝</div>
+              <div style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px;">공동체 문화</div>
+              <div style="font-size:12px;color:var(--text-mid);line-height:1.6;">한궁 특유의 커뮤니티 DNA</div>
+            </div>
+            <div style="padding:16px;background:rgba(13,27,62,.05);border-radius:12px;border:1px solid rgba(201,151,58,.15);">
+              <div style="font-size:1.4rem;margin-bottom:8px;">♿</div>
+              <div style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px;">장애인 참여 구조</div>
+              <div style="font-size:12px;color:var(--text-mid);line-height:1.6;">시니어·장애인 친화 설계</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-num dark">05 / 08</div>
+  </div>
+
+  <!-- ══ SLIDE 6: 공동 설계 ══ -->
+  <div class="slide slide-dark" id="s6">
+    <div class="pad">
+      <div class="s-kicker white anim">05 &nbsp; 앞으로 3개월</div>
+      <h2 class="s-title white anim anim-1">공동 설계 과정이<br>필요합니다</h2>
+      <div class="divider anim anim-1"></div>
+
+      <div class="two-col" style="margin-top:36px;align-items:center;">
+        <div>
+          <p class="s-body white anim anim-2" style="margin-bottom:28px;">
+            이 작업은 개발실 내부만으로는 불가능합니다. 앞으로의 3개월은 단순 테스트 기간이 아니라, 한궁 전용 AI 운영체계를 함께 디자인하는 과정입니다.
+          </p>
+          <div class="hl-box anim anim-3">
+            한궁 전용 AI 운영체계를<br>함께 디자인하는 과정
+          </div>
+        </div>
+
+        <div class="timeline anim anim-2">
+          <div class="tl-item">
+            <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+            <div class="tl-content">
+              <div class="tl-label">파트너 1</div>
+              <div class="tl-text"><strong>세계한궁협회</strong><br>철학·방향성 공동 수립</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+            <div class="tl-content">
+              <div class="tl-label">파트너 2</div>
+              <div class="tl-text"><strong>전국 지도사</strong><br>현장 운영 흐름 이식</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+            <div class="tl-content">
+              <div class="tl-label">파트너 3</div>
+              <div class="tl-text"><strong>실제 현장</strong><br>경로당·생활체육 거점</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-left"><div class="tl-dot"></div></div>
+            <div class="tl-content">
+              <div class="tl-label">파트너 4</div>
+              <div class="tl-text"><strong>시니어 및 장애인 사용자</strong><br>실사용자 피드백 반영</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-num">06 / 08</div>
+  </div>
+
+  <!-- ══ SLIDE 7: 현재 단계 요약 ══ -->
+  <div class="slide slide-light" id="s7">
+    <div class="pad-sm">
+      <div class="s-kicker anim">06 &nbsp; 현재 단계</div>
+      <h2 class="s-title dark anim anim-1" style="font-size:44px;">핵심 의미 — 지금 우리는 어디에 있는가</h2>
+      <div class="divider anim anim-1"></div>
+
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:32px;" class="anim anim-2">
+        <div style="text-align:center;padding:24px 12px;background:var(--navy);border-radius:14px;">
+          <div style="font-size:2rem;margin-bottom:10px;">🏗️</div>
+          <div style="font-size:13px;font-weight:700;color:var(--gold-light);margin-bottom:6px;">인프라</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.5);line-height:1.5;">구글 클라우드<br>구축 완료</div>
+          <div style="margin-top:12px;padding:4px 10px;background:rgba(26,107,74,.2);border-radius:100px;font-size:10px;color:#6fcf97;display:inline-block;">완료 ✓</div>
+        </div>
+        <div style="text-align:center;padding:24px 12px;background:var(--navy);border-radius:14px;">
+          <div style="font-size:2rem;margin-bottom:10px;">🤖</div>
+          <div style="font-size:13px;font-weight:700;color:var(--gold-light);margin-bottom:6px;">AI 운영 기반</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.5);line-height:1.5;">Vertex AI<br>연동 완료</div>
+          <div style="margin-top:12px;padding:4px 10px;background:rgba(26,107,74,.2);border-radius:100px;font-size:10px;color:#6fcf97;display:inline-block;">완료 ✓</div>
+        </div>
+        <div style="text-align:center;padding:24px 12px;background:var(--navy);border-radius:14px;">
+          <div style="font-size:2rem;margin-bottom:10px;">📻</div>
+          <div style="font-size:13px;font-weight:700;color:var(--gold-light);margin-bottom:6px;">방송 엔진</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.5);line-height:1.5;">라디오 OS<br>구축 완료</div>
+          <div style="margin-top:12px;padding:4px 10px;background:rgba(26,107,74,.2);border-radius:100px;font-size:10px;color:#6fcf97;display:inline-block;">완료 ✓</div>
+        </div>
+        <div style="text-align:center;padding:24px 12px;background:var(--navy);border-radius:14px;">
+          <div style="font-size:2rem;margin-bottom:10px;">📋</div>
+          <div style="font-size:13px;font-weight:700;color:var(--gold-light);margin-bottom:6px;">가이드라인</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.5);line-height:1.5;">치매예방<br>운영기준 완비</div>
+          <div style="margin-top:12px;padding:4px 10px;background:rgba(26,107,74,.2);border-radius:100px;font-size:10px;color:#6fcf97;display:inline-block;">완료 ✓</div>
+        </div>
+        <div style="text-align:center;padding:24px 12px;background:rgba(201,151,58,.15);border-radius:14px;border:2px solid var(--gold);">
+          <div style="font-size:2rem;margin-bottom:10px;">🎯</div>
+          <div style="font-size:13px;font-weight:700;color:var(--gold);margin-bottom:6px;">한궁화(化)</div>
+          <div style="font-size:11px;color:rgba(201,151,58,.7);line-height:1.5;">한궁 DNA<br>이식 단계</div>
+          <div style="margin-top:12px;padding:4px 10px;background:rgba(201,151,58,.2);border-radius:100px;font-size:10px;color:var(--gold);display:inline-block;">진행 중 →</div>
+        </div>
+      </div>
+
+      <div style="margin-top:28px;padding:20px 24px;background:rgba(13,27,62,.05);border-radius:12px;border-left:3px solid var(--gold);" class="anim anim-3">
+        <p style="font-size:16px;font-weight:600;color:var(--navy);line-height:1.6;">
+          이제 남은 것은 — <strong style="color:var(--gold);">"한궁이라는 거대한 생활체육 공동체의 옷을 입히는 일"</strong>입니다.
+        </p>
+      </div>
+    </div>
+    <div class="slide-num dark">07 / 08</div>
+  </div>
+
+  <!-- ══ SLIDE 8: 결론 ══ -->
+  <div class="slide slide-dark" id="s8">
+    <div class="pad" style="display:flex;flex-direction:column;justify-content:center;height:100%;">
+      <div class="s-kicker white anim">결론</div>
+
+      <div class="big-quote anim anim-1" style="margin-bottom:36px;max-width:900px;">
+        이번 프로젝트는<br>
+        단순한 AI 서비스 도입이 아닙니다.<br>
+        <em>"한궁을 AI 시대의<br>생활 공동체 플랫폼으로<br>진화시키는 시작"</em>입니다.
+      </div>
+
+      <div style="display:flex;gap:16px;flex-wrap:wrap;" class="anim anim-2">
+        <div class="badge">인프라 완료</div>
+        <div class="badge">AI 엔진 완성</div>
+        <div class="badge">210편 논문 탑재</div>
+        <div class="badge">치매예방 가이드라인</div>
+        <div class="badge" style="background:rgba(201,151,58,.2);border-color:var(--gold);color:var(--gold);">→ 이제 한궁화(化) 시작</div>
+      </div>
+
+      <div style="position:absolute;bottom:56px;right:80px;text-align:right;" class="anim anim-3">
+        <div style="font-family:'Noto Serif KR',serif;font-size:13px;color:rgba(255,255,255,.3);letter-spacing:.05em;">
+          한궁 AI 라디오 OS<br>
+          기술적 기반 구축 완료 보고
+        </div>
+      </div>
+    </div>
+    <div class="slide-num">08 / 08</div>
+  </div>
+
+</div><!-- #deck -->
+
+<!-- Controls -->
+<div id="controls">
+  <button class="ctrl-btn" id="btn-prev" title="이전">&#8592;</button>
+  <div id="slide-counter">1 / 8</div>
+  <button class="ctrl-btn" id="btn-next" title="다음">&#8594;</button>
+</div>
+
+<script>
+const TOTAL = 8;
+let cur = 1;
+
+function goTo(n){
+  if(n<1||n>TOTAL)return;
+  document.getElementById('s'+cur).classList.remove('active');
+  cur=n;
+  document.getElementById('s'+cur).classList.add('active');
+  document.getElementById('slide-counter').textContent=cur+' / '+TOTAL;
+  document.getElementById('progress').style.width=(cur/TOTAL*100)+'%';
+}
+
+document.getElementById('btn-next').onclick=()=>goTo(cur+1);
+document.getElementById('btn-prev').onclick=()=>goTo(cur-1);
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' ')goTo(cur+1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp')goTo(cur-1);
+});
+
+// 터치 스와이프
+let tx=0;
+document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)>40){dx<0?goTo(cur+1):goTo(cur-1);}
+});
+
+// 반응형 스케일
+function rescale(){
+  const ww=window.innerWidth,wh=window.innerHeight;
+  const scale=Math.min(ww/1280,wh/720);
+  document.getElementById('deck').style.setProperty('--scale',scale);
+  document.getElementById('deck').style.transform=`translate(-50%,-50%) scale(${scale})`;
+}
+rescale();
+window.addEventListener('resize',rescale);
+
+// 초기 progress
+document.getElementById('progress').style.width=(1/TOTAL*100)+'%';
+</script>
+</body>
+</html>
