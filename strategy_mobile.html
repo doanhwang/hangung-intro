@@ -64,9 +64,9 @@ body{
 /* ── SECTIONS ── */
 .section{
   min-height:100svh;
-  padding:72px 24px 48px;
+  padding:72px 24px 56px;
   position:relative;
-  display:flex;flex-direction:column;justify-content:center;
+  display:flex;flex-direction:column;justify-content:flex-start;
 }
 
 .section-dark{background:var(--navy);}
@@ -259,6 +259,8 @@ body{
   border:1px solid rgba(201,151,58,.2);
   box-shadow:0 8px 30px rgba(0,0,0,.4);
   margin-bottom:16px;
+  width:100%;
+  box-sizing:border-box;
 }
 .browser-bar{
   background:#1e2230;padding:7px 12px;
@@ -341,7 +343,7 @@ body{
 </nav>
 
 <!-- ══ 01: COVER ══ -->
-<section class="section section-dark" data-sec="1">
+<section class="section section-dark" data-sec="1" style="justify-content:center;">
   <div class="sec-num">한궁 AI 라디오 OS · 추진 현황</div>
   <div style="font-family:'Noto Serif KR',serif;font-size:clamp(32px,8vw,52px);font-weight:900;color:var(--white);line-height:1.15;margin-bottom:20px;" class="reveal">
     기술적 기반<br>구축 <span style="color:var(--gold);">완료</span>,<br>이제 시작입니다
@@ -359,7 +361,7 @@ body{
 </section>
 
 <!-- ══ 02: 인프라 ══ -->
-<section class="section section-dark" data-sec="2">
+<section class="section section-dark" data-sec="2" style="justify-content:center;">
   <div class="kicker reveal">01 · 가장 큰 관문</div>
   <div class="title reveal r1">대규모 운영 인프라<br>구축 완료</div>
   <div class="divider reveal r1"></div>
@@ -378,7 +380,7 @@ body{
 </section>
 
 <!-- ══ 03: 기술 기반 ══ -->
-<section class="section section-light" data-sec="3">
+<section class="section section-light" data-sec="3" style="justify-content:center;">
   <div class="kicker dark reveal">02 · 기술적 기반</div>
   <div class="title dark reveal r1">AI 라디오 엔진,<br>실제 운영 가능한 수준</div>
   <div class="divider reveal r1"></div>
@@ -401,7 +403,7 @@ body{
 </section>
 
 <!-- ══ 04: 치매예방 가이드라인 ══ -->
-<section class="section section-dark" data-sec="4">
+<section class="section section-dark" data-sec="4" style="justify-content:center;">
   <div class="kicker reveal">03 · 핵심 차별점</div>
   <div class="title reveal r1">치매예방 운영<br>가이드라인 구축 완료</div>
   <div class="divider reveal r1"></div>
@@ -432,7 +434,7 @@ body{
 </section>
 
 <!-- ══ 05: 한궁의 옷 ══ -->
-<section class="section section-light" data-sec="5">
+<section class="section section-light" data-sec="5" style="justify-content:center;">
   <div class="kicker dark reveal">04 · 다음 단계</div>
   <div class="title dark reveal r1">'한궁의 옷'을<br>입히는 과정</div>
   <div class="divider reveal r1"></div>
@@ -459,7 +461,7 @@ body{
 </section>
 
 <!-- ══ 06: 공동 설계 ══ -->
-<section class="section section-dark" data-sec="6">
+<section class="section section-dark" data-sec="6" style="justify-content:center;">
   <div class="kicker reveal">05 · 앞으로 3개월</div>
   <div class="title reveal r1">공동 설계 과정이<br>필요합니다</div>
   <div class="divider reveal r1"></div>
@@ -486,7 +488,7 @@ body{
 </section>
 
 <!-- ══ 07: 현재 단계 ══ -->
-<section class="section section-light" data-sec="7">
+<section class="section section-light" data-sec="7" style="justify-content:center;">
   <div class="kicker dark reveal">06 · 현재 단계</div>
   <div class="title dark reveal r1" style="font-size:clamp(22px,5vw,30px);">핵심 의미 —<br>지금 우리는 어디에 있는가</div>
   <div class="divider reveal r1"></div>
@@ -528,7 +530,7 @@ body{
 </section>
 
 <!-- ══ 08: 실제 화면 ══ -->
-<section class="section section-dark" data-sec="8" style="padding-bottom:24px;">
+<section class="section section-dark" data-sec="8" style="padding-bottom:48px;justify-content:flex-start;">
   <div class="kicker reveal">실제 구현 화면 — 3가지 레이어</div>
   <div class="title reveal r1" style="font-size:clamp(22px,5.5vw,30px);">객체로 설계되어<br>필요에 따라 재조합됩니다</div>
   <div class="body-text reveal r2" style="font-size:13px;">관리자 등급에 따라 보이는 화면과 기능이 달라집니다. 방송 제작·수신·관리까지 모두 동일한 구조 위에서 재조합됩니다.</div>
@@ -619,7 +621,7 @@ body{
   </div>
 
   <!-- 패널 1: 방송 수신 -->
-  <div id="mpanel-1" style="display:none;" class="reveal r3">
+  <div id="mpanel-1" style="display:none;">
     <div class="screen-card" style="font-family:'Noto Sans KR',sans-serif;">
       <div class="browser-bar">
         <div class="browser-dots"><span style="background:#ff5f57;"></span><span style="background:#febc2e;"></span><span style="background:#28c840;"></span></div>
@@ -667,7 +669,7 @@ body{
   </div>
 
   <!-- 패널 2: 관리자 -->
-  <div id="mpanel-2" style="display:none;" class="reveal r3">
+  <div id="mpanel-2" style="display:none;">
     <div class="screen-card" style="font-family:'Noto Sans KR',sans-serif;">
       <div class="browser-bar">
         <div class="browser-dots"><span style="background:#ff5f57;"></span><span style="background:#febc2e;"></span><span style="background:#28c840;"></span></div>
@@ -714,7 +716,7 @@ body{
   </div>
 
   <!-- 패널 3: 논문 근거 -->
-  <div id="mpanel-3" style="display:none;" class="reveal r3">
+  <div id="mpanel-3" style="display:none;">
     <div class="screen-card" style="font-family:'Noto Sans KR',sans-serif;">
       <div class="browser-bar">
         <div class="browser-dots"><span style="background:#ff5f57;"></span><span style="background:#febc2e;"></span><span style="background:#28c840;"></span></div>
@@ -771,7 +773,7 @@ body{
 </section>
 
 <!-- ══ 09: 결론 ══ -->
-<section class="section section-dark" data-sec="9" style="min-height:90svh;">
+<section class="section section-dark" data-sec="9" style="min-height:90svh;justify-content:center;">
   <div class="kicker reveal">결론</div>
   <div class="big-quote reveal r1">
     이번 프로젝트는<br>단순한 AI 서비스 도입이 아닙니다.<br><em>"한궁을 AI 시대의<br>생활 공동체 플랫폼으로<br>진화시키는 시작"</em>입니다.
@@ -799,17 +801,16 @@ function mTab(n){
   for(let i=0;i<4;i++){
     const p=document.getElementById('mpanel-'+i);
     const b=document.getElementById('mtab-'+i);
-    if(p) p.style.display=(i===n)?'block':'none';
+    if(p){
+      p.style.display=(i===n)?'block':'none';
+      p.style.opacity='1';
+      p.style.transform='none';
+    }
     if(b){
       if(i===n){b.classList.add('on');}
       else{b.classList.remove('on');}
     }
   }
-  // 스크롤 to panel
-  setTimeout(()=>{
-    const el=document.getElementById('mpanel-'+n);
-    if(el) el.scrollIntoView({behavior:'smooth',block:'nearest'});
-  },50);
 }
 
 // ── 스크롤 진행률 + 섹션 카운터 ──
