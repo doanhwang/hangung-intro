@@ -467,7 +467,7 @@ html,body{
       <div class="s1-deco-text">AI</div>
     </div>
 
-    <div class="slide-num">01 / 09</div>
+    <div class="slide-num">01 / 10</div>
   </div>
 
   <!-- ══ SLIDE 2: 인프라 ══ -->
@@ -503,7 +503,7 @@ html,body{
         </div>
       </div>
     </div>
-    <div class="slide-num">02 / 09</div>
+    <div class="slide-num">02 / 10</div>
   </div>
 
   <!-- ══ SLIDE 3: 기술 기반 ══ -->
@@ -537,7 +537,7 @@ html,body{
         </p>
       </div>
     </div>
-    <div class="slide-num dark">03 / 09</div>
+    <div class="slide-num dark">03 / 10</div>
   </div>
 
   <!-- ══ SLIDE 4: 치매예방 가이드라인 ══ -->
@@ -579,7 +579,7 @@ html,body{
         </div>
       </div>
     </div>
-    <div class="slide-num">04 / 09</div>
+    <div class="slide-num">04 / 10</div>
   </div>
 
   <!-- ══ SLIDE 5: 한궁의 옷 ══ -->
@@ -625,7 +625,7 @@ html,body{
         </div>
       </div>
     </div>
-    <div class="slide-num dark">05 / 09</div>
+    <div class="slide-num dark">05 / 10</div>
   </div>
 
   <!-- ══ SLIDE 6: 공동 설계 ══ -->
@@ -677,7 +677,7 @@ html,body{
         </div>
       </div>
     </div>
-    <div class="slide-num">06 / 09</div>
+    <div class="slide-num">06 / 10</div>
   </div>
 
   <!-- ══ SLIDE 7: 현재 단계 요약 ══ -->
@@ -726,7 +726,7 @@ html,body{
         </p>
       </div>
     </div>
-    <div class="slide-num dark">07 / 09</div>
+    <div class="slide-num dark">07 / 10</div>
   </div>
 
   <!-- ══ SLIDE 8: 관리자 도구 실제 화면 ══ -->
@@ -940,11 +940,292 @@ html,body{
       }
       </script>
     </div>
-    <div class="slide-num dark">08 / 09</div>
+    <div class="slide-num dark">08 / 10</div>
   </div>
 
-  <!-- ══ SLIDE 9: 결론 ══ -->
+  <!-- ══ SLIDE 9: 3개 화면 — 객체 설계 + 등급별 관리자 ══ -->
   <div class="slide slide-dark" id="s9">
+    <div class="pad-sm">
+      <div class="s-kicker white anim">실제 구현 화면 — 3가지 레이어</div>
+      <h2 class="s-title white anim anim-1" style="font-size:38px;">객체로 설계되어<br>필요에 따라 재조합됩니다</h2>
+
+      <p style="font-size:14px;color:rgba(255,255,255,.55);max-width:700px;line-height:1.7;margin-bottom:18px;" class="anim anim-2">
+        관리자 도구 역시 객체지향 설계로 구현되어 있어, 관리자 등급에 따라 보이는 화면과 기능이 달라집니다.<br>
+        방송 제작 화면 · 관리자 대시보드 · 논문 근거 관리까지 — 모두 동일한 구조 위에서 재조합됩니다.
+      </p>
+
+      <!-- 탭 선택 -->
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;" class="anim anim-2" id="s9-tabs">
+        <button onclick="s9Tab(0)" id="s9tab-0"
+          style="padding:7px 18px;border-radius:100px;font-size:12px;font-weight:600;cursor:pointer;background:var(--gold);color:var(--navy);border:none;font-family:'Noto Sans KR',sans-serif;">
+          방송 수신 화면
+        </button>
+        <button onclick="s9Tab(1)" id="s9tab-1"
+          style="padding:7px 18px;border-radius:100px;font-size:12px;font-weight:600;cursor:pointer;background:rgba(255,255,255,.07);color:rgba(255,255,255,.65);border:1px solid rgba(201,151,58,.2);font-family:'Noto Sans KR',sans-serif;">
+          관리자 대시보드
+        </button>
+        <button onclick="s9Tab(2)" id="s9tab-2"
+          style="padding:7px 18px;border-radius:100px;font-size:12px;font-weight:600;cursor:pointer;background:rgba(255,255,255,.07);color:rgba(255,255,255,.65);border:1px solid rgba(201,151,58,.2);font-family:'Noto Sans KR',sans-serif;">
+          논문 근거 관리
+        </button>
+      </div>
+
+      <!-- 패널 0: 방송 수신 화면 (Image 3) -->
+      <div id="s9panel-0" style="display:flex;gap:24px;align-items:flex-start;" class="anim anim-3">
+        <!-- 폰 목업 -->
+        <div style="flex-shrink:0;width:240px;">
+          <div style="background:#1a1a1a;border-radius:32px;padding:12px 10px;box-shadow:0 0 0 2px #333,0 20px 50px rgba(0,0,0,.6);">
+            <div style="width:70px;height:20px;background:#1a1a1a;border-radius:0 0 14px 14px;margin:0 auto 4px;"></div>
+            <div style="border-radius:20px;overflow:hidden;background:#fff;font-family:'Noto Sans KR',sans-serif;font-size:11px;">
+              <!-- 헤더 -->
+              <div style="background:linear-gradient(135deg,#1a2e4a,#2a9d8f);padding:16px 14px 14px;">
+                <div style="font-size:9px;color:rgba(255,255,255,.6);margin-bottom:4px;letter-spacing:.08em;">AI LIFE RADIO OS</div>
+                <div style="font-size:15px;font-weight:700;color:white;line-height:1.3;margin-bottom:6px;">당신에게 도착한<br>AI 라이프 라디오</div>
+                <div style="font-size:9px;color:rgba(255,255,255,.7);line-height:1.5;">누군가 당신에게 하나의 방송을 전했습니다.<br>이야기를 듣고, 마음을 남기고,<br>다시 연결할 수 있습니다.</div>
+              </div>
+              <!-- 메타 -->
+              <div style="padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:6px;border-bottom:1px solid #f0f1f5;">
+                <div style="padding:6px;background:#f8f9fc;border-radius:6px;"><div style="font-size:8px;color:#7a869a;">받는 사람</div><div style="font-size:10px;font-weight:600;color:#1a2340;margin-top:1px;">공유받는 사람</div></div>
+                <div style="padding:6px;background:#f8f9fc;border-radius:6px;"><div style="font-size:8px;color:#7a869a;">관계</div><div style="font-size:10px;font-weight:600;color:#1a2340;margin-top:1px;">공유</div></div>
+                <div style="padding:6px;background:#f8f9fc;border-radius:6px;"><div style="font-size:8px;color:#7a869a;">대상 그룹</div><div style="font-size:10px;font-weight:600;color:#1a2340;margin-top:1px;">지인</div></div>
+                <div style="padding:6px;background:#f8f9fc;border-radius:6px;"><div style="font-size:8px;color:#7a869a;">공유 채널</div><div style="font-size:10px;font-weight:600;color:#1a2340;margin-top:1px;">kakao_link</div></div>
+              </div>
+              <!-- 플레이어 -->
+              <div style="padding:10px 12px;">
+                <div style="font-size:11px;font-weight:700;color:#1a2340;margin-bottom:6px;">공유된 방송</div>
+                <div style="background:#f8f9fc;border-radius:8px;padding:8px 10px;margin-bottom:8px;">
+                  <div style="font-size:9px;color:#7a869a;margin-bottom:6px;">실제 방송 듣기</div>
+                  <div style="display:flex;align-items:center;gap:6px;">
+                    <span style="font-size:14px;">⏸</span>
+                    <div style="font-size:9px;color:#7a869a;white-space:nowrap;">0:56 / 3:16</div>
+                    <div style="flex:1;height:3px;background:#e8eaf0;border-radius:2px;"><div style="width:30%;height:100%;background:#4a90d9;border-radius:2px;"></div></div>
+                    <span style="font-size:11px;">🔊</span>
+                  </div>
+                </div>
+                <div style="background:#4a6cf7;border-radius:8px;padding:9px;text-align:center;color:white;font-size:11px;font-weight:600;margin-bottom:8px;">방송을 들었습니다</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;">
+                  <div style="padding:6px;background:#f8f9fc;border-radius:6px;text-align:center;font-size:8px;color:#1a2340;font-weight:500;">답장/사연<br>남기기</div>
+                  <div style="padding:6px;background:#f8f9fc;border-radius:6px;text-align:center;font-size:8px;color:#1a2340;font-weight:500;">내 방송국<br>만들기</div>
+                  <div style="padding:6px;background:#f8f9fc;border-radius:6px;text-align:center;font-size:8px;color:#1a2340;font-weight:500;">다시<br>공유하기</div>
+                </div>
+              </div>
+            </div>
+            <div style="width:70px;height:3px;background:#444;border-radius:2px;margin:8px auto 0;"></div>
+          </div>
+        </div>
+        <!-- 설명 -->
+        <div style="flex:1;padding-top:8px;">
+          <div style="font-family:'Noto Serif KR',serif;font-size:20px;font-weight:700;color:var(--white);margin-bottom:16px;line-height:1.4;">카카오·문자·메신저로<br>전달되는 수신자 전용 화면</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;gap:12px;align-items:flex-start;padding:12px;background:rgba(255,255,255,.05);border-radius:10px;border:1px solid rgba(201,151,58,.15);">
+              <div style="font-size:18px;flex-shrink:0;">🔗</div>
+              <div><div style="font-size:13px;font-weight:600;color:var(--gold-light);margin-bottom:3px;">링크 하나로 전달</div><div style="font-size:11px;color:rgba(255,255,255,.55);line-height:1.6;">별도 앱 설치 없이 카카오톡·문자·SNS 링크로 바로 열립니다. 청취 시작과 완료가 관계망 확산 기록에 자동 반영됩니다.</div></div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start;padding:12px;background:rgba(255,255,255,.05);border-radius:10px;border:1px solid rgba(201,151,58,.15);">
+              <div style="font-size:18px;flex-shrink:0;">↩️</div>
+              <div><div style="font-size:13px;font-weight:600;color:var(--gold-light);margin-bottom:3px;">답장 → 새 방송 생성</div><div style="font-size:11px;color:rgba(255,255,255,.55);line-height:1.6;">"답장/사연 남기기"로 새 사연이 접수되면 AI가 다시 방송을 만들어 순환 구조가 완성됩니다.</div></div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start;padding:12px;background:rgba(255,255,255,.05);border-radius:10px;border:1px solid rgba(201,151,58,.15);">
+              <div style="font-size:18px;flex-shrink:0;">🌐</div>
+              <div><div style="font-size:13px;font-weight:600;color:var(--gold-light);margin-bottom:3px;">관계망이 자동으로 확산</div><div style="font-size:11px;color:rgba(255,255,255,.55);line-height:1.6;">"다시 공유하기"로 3차·4차 수신자까지 퍼집니다. 경로당 한 어르신의 방송이 온 가족에게 닿습니다.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 패널 1: 관리자 대시보드 (Image 2) -->
+      <div id="s9panel-1" style="display:none;" class="anim anim-3">
+        <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(201,151,58,.2);box-shadow:0 8px 40px rgba(0,0,0,.4);font-family:'Noto Sans KR',sans-serif;font-size:11px;">
+          <!-- 브라우저 바 -->
+          <div style="background:#1e2230;padding:8px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,.06);">
+            <div style="display:flex;gap:5px;"><div style="width:10px;height:10px;border-radius:50%;background:#ff5f57;"></div><div style="width:10px;height:10px;border-radius:50%;background:#febc2e;"></div><div style="width:10px;height:10px;border-radius:50%;background:#28c840;"></div></div>
+            <div style="flex:1;background:rgba(255,255,255,.06);border-radius:5px;padding:3px 10px;font-size:10px;color:rgba(255,255,255,.3);max-width:380px;margin:0 auto;">admin.hangung-ai-radio.ai / dashboard</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.25);">관리자 등급: SUPER</div>
+          </div>
+          <!-- 대시보드 -->
+          <div style="display:flex;background:#f0f2f8;min-height:340px;">
+            <!-- 사이드바 -->
+            <div style="width:150px;background:#1a2340;flex-shrink:0;padding:10px 0;">
+              <div style="padding:8px 12px;display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+                <div style="width:24px;height:24px;background:rgba(255,255,255,.1);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;">📻</div>
+                <div><div style="font-size:10px;font-weight:700;color:white;">AI 1:1 Radio</div><div style="font-size:8px;color:rgba(255,255,255,.4);">Life Radio OS</div></div>
+              </div>
+              <div style="padding:7px 12px;background:rgba(255,255,255,.12);color:white;font-size:10px;font-weight:600;display:flex;align-items:center;gap:6px;">🏠 대시보드</div>
+              <div style="padding:7px 12px;color:rgba(255,255,255,.45);font-size:10px;">👥 사용자 관리</div>
+              <div style="padding:7px 12px;color:rgba(255,255,255,.45);font-size:10px;">🎙️ 방송 관리</div>
+              <div style="padding:7px 12px;color:rgba(255,255,255,.45);font-size:10px;">📖 자서전 아카이브</div>
+              <div style="padding:7px 12px;color:rgba(255,255,255,.45);font-size:10px;">🌐 대상군/채널</div>
+              <div style="padding:7px 12px;color:rgba(255,255,255,.45);font-size:10px;">💝 후원·광고 캠페인</div>
+              <div style="padding:7px 12px;color:rgba(255,255,255,.45);font-size:10px;">🔗 관계망 확산</div>
+              <div style="padding:7px 12px;color:rgba(255,255,255,.45);font-size:10px;">⚙️ 생성 작업 큐</div>
+              <div style="padding:7px 12px;color:rgba(255,255,255,.45);font-size:10px;">📊 리포트</div>
+              <div style="height:1px;background:rgba(255,255,255,.08);margin:4px 12px;"></div>
+              <div style="padding:7px 12px;color:rgba(201,151,58,.8);font-size:10px;font-weight:600;">📄 논문근거</div>
+              <div style="padding:7px 12px;color:rgba(201,151,58,.6);font-size:10px;">📦 기억활력 제출패키지</div>
+              <div style="padding:7px 12px;color:rgba(201,151,58,.6);font-size:10px;">💡 기억활력</div>
+            </div>
+            <!-- 메인 -->
+            <div style="flex:1;padding:14px 16px;">
+              <div style="font-size:15px;font-weight:700;color:#1a2340;margin-bottom:2px;">AI 한궁 노인 치매예방 방송국</div>
+              <div style="font-size:9px;color:#7a869a;margin-bottom:10px;">3주 MVP 운영 대시보드</div>
+              <!-- KPI -->
+              <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:10px;">
+                <div style="background:white;border-radius:8px;padding:10px 8px;text-align:center;border:1px solid #e8eaf0;"><div style="font-size:8px;color:#7a869a;margin-bottom:3px;">총 사용자</div><div style="font-size:18px;font-weight:700;color:#1a2340;">1,284</div><div style="font-size:8px;color:#36b37e;">↑+12%</div></div>
+                <div style="background:white;border-radius:8px;padding:10px 8px;text-align:center;border:1px solid #e8eaf0;"><div style="font-size:8px;color:#7a869a;margin-bottom:3px;">생성된 방송</div><div style="font-size:18px;font-weight:700;color:#1a2340;">3,962</div><div style="font-size:8px;color:#36b37e;">↑+8%</div></div>
+                <div style="background:white;border-radius:8px;padding:10px 8px;text-align:center;border:1px solid #e8eaf0;"><div style="font-size:8px;color:#7a869a;margin-bottom:3px;">자서전 에피소드</div><div style="font-size:18px;font-weight:700;color:#1a2340;">1,147</div><div style="font-size:8px;color:#36b37e;">↑+14%</div></div>
+                <div style="background:white;border-radius:8px;padding:10px 8px;text-align:center;border:1px solid #e8eaf0;"><div style="font-size:8px;color:#7a869a;margin-bottom:3px;">활성 캠페인</div><div style="font-size:18px;font-weight:700;color:#1a2340;">12</div><div style="font-size:8px;color:#36b37e;">↑+3</div></div>
+                <div style="background:white;border-radius:8px;padding:10px 8px;text-align:center;border:1px solid #e8eaf0;"><div style="font-size:8px;color:#7a869a;margin-bottom:3px;">생성 성공률</div><div style="font-size:18px;font-weight:700;color:#1a2340;">96.4%</div><div style="font-size:8px;color:#36b37e;">↑+2.1%p</div></div>
+              </div>
+              <!-- 차트 + 도넛 -->
+              <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:10px;margin-bottom:10px;">
+                <div style="background:white;border-radius:8px;padding:12px;border:1px solid #e8eaf0;">
+                  <div style="font-size:10px;font-weight:600;color:#1a2340;margin-bottom:6px;">일별 방송 생성 추이</div>
+                  <svg viewBox="0 0 280 70" style="width:100%;height:60px;">
+                    <defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2a9d8f" stop-opacity=".2"/><stop offset="100%" stop-color="#2a9d8f" stop-opacity="0"/></linearGradient></defs>
+                    <polyline points="20,55 60,50 100,46 140,40 180,28 220,18 260,22" fill="none" stroke="#2a9d8f" stroke-width="2.5"/>
+                    <polyline points="20,55 60,50 100,46 140,40 180,28 220,18 260,22 260,70 20,70" fill="url(#cg)" stroke="none"/>
+                    <circle cx="220" cy="18" r="3" fill="#2a9d8f"/>
+                    <text x="220" y="13" font-size="9" fill="#2a9d8f" font-weight="bold" text-anchor="middle">944</text>
+                    <text x="20" y="68" font-size="7" fill="#aaa">5/14</text><text x="260" y="68" font-size="7" fill="#aaa">5/20</text>
+                  </svg>
+                </div>
+                <div style="background:white;border-radius:8px;padding:12px;border:1px solid #e8eaf0;">
+                  <div style="font-size:10px;font-weight:600;color:#1a2340;margin-bottom:4px;">핵심 대상 그룹 현황</div>
+                  <svg viewBox="0 0 130 80" style="width:100%;height:70px;">
+                    <circle cx="45" cy="40" r="28" fill="none" stroke="#eee" stroke-width="14"/>
+                    <circle cx="45" cy="40" r="28" fill="none" stroke="#2a9d8f" stroke-width="14" stroke-dasharray="35 175" stroke-dashoffset="0"/>
+                    <circle cx="45" cy="40" r="28" fill="none" stroke="#e76f51" stroke-width="14" stroke-dasharray="43 175" stroke-dashoffset="-35"/>
+                    <circle cx="45" cy="40" r="28" fill="none" stroke="#f4a261" stroke-width="14" stroke-dasharray="49 175" stroke-dashoffset="-78"/>
+                    <circle cx="45" cy="40" r="28" fill="none" stroke="#4a90d9" stroke-width="14" stroke-dasharray="27 175" stroke-dashoffset="-127"/>
+                    <circle cx="45" cy="40" r="28" fill="none" stroke="#e9c46a" stroke-width="14" stroke-dasharray="21 175" stroke-dashoffset="-154"/>
+                    <text x="45" y="37" text-anchor="middle" font-size="8" fill="#1a2340" font-weight="bold">1,284</text>
+                    <text x="45" y="46" text-anchor="middle" font-size="6" fill="#aaa">총 사용자</text>
+                    <text x="82" y="22" font-size="7" fill="#2a9d8f">● 패럴림픽 256</text>
+                    <text x="82" y="32" font-size="7" fill="#e76f51">● 노동조합 318</text>
+                    <text x="82" y="42" font-size="7" fill="#f4a261">● 활동지원 362</text>
+                    <text x="82" y="52" font-size="7" fill="#4a90d9">● 다문화 198</text>
+                    <text x="82" y="62" font-size="7" fill="#e9c46a">● 후원파트너 150</text>
+                  </svg>
+                </div>
+              </div>
+              <!-- 작업 큐 -->
+              <div style="background:white;border-radius:8px;padding:10px;border:1px solid #e8eaf0;">
+                <div style="font-size:10px;font-weight:600;color:#1a2340;margin-bottom:6px;">생성 작업 큐</div>
+                <div style="display:flex;flex-direction:column;gap:3px;">
+                  <div style="display:grid;grid-template-columns:1fr 1.5fr 1fr auto auto;gap:6px;padding:4px 6px;background:#f8f9fc;border-radius:5px;align-items:center;"><span style="font-size:9px;font-weight:600;color:#1a2340;">김지원</span><span style="font-size:9px;color:#7a869a;">장애인·가족·활동지원사</span><span style="font-size:9px;color:#7a869a;">안부 라디오</span><span style="padding:2px 6px;background:#d4edda;color:#1fa885;border-radius:3px;font-size:8px;font-weight:600;">완료</span><span style="font-size:8px;color:#7a869a;">0:04:32</span></div>
+                  <div style="display:grid;grid-template-columns:1fr 1.5fr 1fr auto auto;gap:6px;padding:4px 6px;background:#f8f9fc;border-radius:5px;align-items:center;"><span style="font-size:9px;font-weight:600;color:#1a2340;">박세훈</span><span style="font-size:9px;color:#7a869a;">장애인 노동조합</span><span style="font-size:9px;color:#7a869a;">조합원 목소리</span><span style="padding:2px 6px;background:#fff3cd;color:#f6703a;border-radius:3px;font-size:8px;font-weight:600;">처리중</span><span style="font-size:8px;color:#7a869a;">0:12:18</span></div>
+                  <div style="display:grid;grid-template-columns:1fr 1.5fr 1fr auto auto;gap:6px;padding:4px 6px;background:#f8f9fc;border-radius:5px;align-items:center;"><span style="font-size:9px;font-weight:600;color:#1a2340;">정민아</span><span style="font-size:9px;color:#7a869a;">패럴림픽 선수</span><span style="font-size:9px;color:#7a869a;">자서전 시리즈</span><span style="padding:2px 6px;background:#fde8e8;color:#e74c3c;border-radius:3px;font-size:8px;font-weight:600;">실패 재시도</span><span style="font-size:8px;color:#7a869a;">—</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 등급 안내 -->
+        <div style="display:flex;gap:10px;margin-top:12px;">
+          <div style="flex:1;padding:10px 14px;background:rgba(255,255,255,.05);border-radius:8px;border:1px solid rgba(201,151,58,.2);">
+            <div style="font-size:10px;font-weight:600;color:var(--gold);margin-bottom:4px;">SUPER 관리자</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.5);">논문근거 · 기억활력 패키지 · 정산/수익 포함 전체 화면</div>
+          </div>
+          <div style="flex:1;padding:10px 14px;background:rgba(255,255,255,.05);border-radius:8px;border:1px solid rgba(255,255,255,.1);">
+            <div style="font-size:10px;font-weight:600;color:rgba(255,255,255,.6);margin-bottom:4px;">일반 관리자</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.4);">방송·사용자·캠페인 관리 화면만 노출</div>
+          </div>
+          <div style="flex:1;padding:10px 14px;background:rgba(255,255,255,.05);border-radius:8px;border:1px solid rgba(255,255,255,.1);">
+            <div style="font-size:10px;font-weight:600;color:rgba(255,255,255,.6);margin-bottom:4px;">현장 지도사</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.4);">담당 대상군·방송 생성·큐 현황만 노출</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 패널 2: 논문 근거 관리 (Image 1) -->
+      <div id="s9panel-2" style="display:none;" class="anim anim-3">
+        <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(201,151,58,.25);box-shadow:0 8px 40px rgba(0,0,0,.4);background:#fff;font-family:'Noto Sans KR',sans-serif;">
+          <!-- 브라우저 바 -->
+          <div style="background:#f0f1f5;padding:8px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #dde1ec;">
+            <div style="display:flex;gap:5px;"><div style="width:10px;height:10px;border-radius:50%;background:#ff5f57;"></div><div style="width:10px;height:10px;border-radius:50%;background:#febc2e;"></div><div style="width:10px;height:10px;border-radius:50%;background:#28c840;"></div></div>
+            <div style="flex:1;background:white;border-radius:5px;padding:3px 10px;font-size:10px;color:#8a909e;max-width:380px;margin:0 auto;">admin.hangung-ai-radio.ai / evidence</div>
+            <div style="font-size:10px;color:#7a869a;">📄 논문근거 관리 · SUPER 전용</div>
+          </div>
+          <div style="padding:16px 20px;">
+            <!-- 상단 논문 2개 -->
+            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid #f0f1f5;">
+              <div style="display:flex;align-items:flex-start;gap:10px;padding:10px;background:#f8f9fc;border-radius:8px;">
+                <div style="flex:1;"><div style="font-size:11px;font-weight:600;color:#1a2340;margin-bottom:2px;">Consequences of physical inactivity in older adults: A systematic review of reviews and meta-analyses.</div><div style="font-size:9px;color:#4a90d9;">10.1111/sms.13616</div></div>
+                <div style="display:flex;gap:6px;align-items:center;flex-shrink:0;flex-wrap:wrap;">
+                  <span style="font-size:9px;color:#7a869a;background:#f0f1f5;padding:2px 6px;border-radius:4px;">systematic_review</span>
+                  <span style="font-size:9px;color:#7a869a;">2020</span>
+                  <span style="padding:2px 8px;background:#d4edda;color:#1fa885;border-radius:4px;font-size:9px;font-weight:700;">core</span>
+                </div>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:10px;padding:10px;background:#f8f9fc;border-radius:8px;">
+                <div style="flex:1;"><div style="font-size:11px;font-weight:600;color:#1a2340;margin-bottom:2px;">The effects of a moderate physical activity intervention on physical fitness and cognition in healthy elderly with low levels of physical activity: a randomized controlled trial.</div><div style="font-size:9px;color:#4a90d9;">10.1186/s13195-022-01123-3</div></div>
+                <div style="display:flex;gap:6px;align-items:center;flex-shrink:0;flex-wrap:wrap;">
+                  <span style="font-size:9px;color:#7a869a;background:#f0f1f5;padding:2px 6px;border-radius:4px;">clinical_trial</span>
+                  <span style="font-size:9px;color:#7a869a;">2023</span>
+                  <span style="padding:2px 8px;background:#fff3cd;color:#f6703a;border-radius:4px;font-size:9px;font-weight:700;">reviewed</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Peer Review 섹션 -->
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+              <div style="font-size:14px;font-weight:700;color:#1a2340;">Peer Review &amp; Certification Traceability</div>
+              <div style="display:flex;gap:6px;">
+                <div style="padding:5px 10px;background:#f0f1f5;border-radius:6px;font-size:10px;color:#1a2340;">검증 새로고침</div>
+                <div style="padding:5px 10px;background:#f0f1f5;border-radius:6px;font-size:10px;color:#1a2340;">인증 JSON</div>
+                <div style="padding:5px 10px;background:#1a2340;border-radius:6px;font-size:10px;color:white;">인증 Markdown 복사</div>
+              </div>
+            </div>
+            <!-- KPI 6개 -->
+            <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:10px;">
+              <div style="border:1px solid #e8eaf0;border-radius:8px;padding:10px 8px;text-align:center;"><div style="font-size:9px;color:#7a869a;margin-bottom:3px;">전체 근거</div><div style="font-size:20px;font-weight:700;color:#1a2340;">210</div></div>
+              <div style="border:1px solid #e8eaf0;border-radius:8px;padding:10px 8px;text-align:center;"><div style="font-size:9px;color:#7a869a;margin-bottom:3px;">활성 근거</div><div style="font-size:20px;font-weight:700;color:#2a9d8f;">209</div></div>
+              <div style="border:1px solid #e8eaf0;border-radius:8px;padding:10px 8px;text-align:center;"><div style="font-size:9px;color:#7a869a;margin-bottom:3px;">제외 근거</div><div style="font-size:20px;font-weight:700;color:#e74c3c;">1</div></div>
+              <div style="border:1px solid #e8eaf0;border-radius:8px;padding:10px 8px;text-align:center;"><div style="font-size:9px;color:#7a869a;margin-bottom:3px;">리뷰 완료</div><div style="font-size:20px;font-weight:700;color:#2a9d8f;">209</div></div>
+              <div style="border:1px solid #e8eaf0;border-radius:8px;padding:10px 8px;text-align:center;"><div style="font-size:9px;color:#7a869a;margin-bottom:3px;">Core</div><div style="font-size:20px;font-weight:700;color:#f6703a;">50</div></div>
+              <div style="border:1px solid #e8eaf0;border-radius:8px;padding:10px 8px;text-align:center;"><div style="font-size:9px;color:#7a869a;margin-bottom:3px;">직접 매핑</div><div style="font-size:20px;font-weight:700;color:#f6703a;">209</div></div>
+            </div>
+            <!-- PASS 5개 -->
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px;">
+              <div style="border:1px solid #d4edda;border-radius:8px;padding:10px;background:#f0fdf4;"><div style="font-size:8px;font-weight:700;color:#1fa885;margin-bottom:4px;">PASS</div><div style="font-size:9px;font-weight:600;color:#1a2340;margin-bottom:3px;">200개 이상 근거 등록</div><div style="font-size:14px;font-weight:700;color:#1a2340;">209 / 200</div></div>
+              <div style="border:1px solid #d4edda;border-radius:8px;padding:10px;background:#f0fdf4;"><div style="font-size:8px;font-weight:700;color:#1fa885;margin-bottom:4px;">PASS</div><div style="font-size:9px;font-weight:600;color:#1a2340;margin-bottom:3px;">프로그램 모듈별 근거 연결</div><div style="font-size:14px;font-weight:700;color:#1a2340;">5 / 5</div></div>
+              <div style="border:1px solid #d4edda;border-radius:8px;padding:10px;background:#f0fdf4;"><div style="font-size:8px;font-weight:700;color:#1fa885;margin-bottom:4px;">PASS</div><div style="font-size:9px;font-weight:600;color:#1a2340;margin-bottom:3px;">피어리뷰 기록 존재</div><div style="font-size:14px;font-weight:700;color:#1a2340;">209 / 1</div></div>
+              <div style="border:1px solid #d4edda;border-radius:8px;padding:10px;background:#f0fdf4;"><div style="font-size:8px;font-weight:700;color:#1fa885;margin-bottom:4px;">PASS</div><div style="font-size:9px;font-weight:600;color:#1a2340;margin-bottom:3px;">핵심 근거 선별</div><div style="font-size:14px;font-weight:700;color:#1a2340;">50 / 30</div></div>
+              <div style="border:1px solid #d4edda;border-radius:8px;padding:10px;background:#f0fdf4;"><div style="font-size:8px;font-weight:700;color:#1fa885;margin-bottom:4px;">PASS</div><div style="font-size:9px;font-weight:600;color:#1a2340;margin-bottom:3px;">근거-기능 직접 매핑 50개 이상</div><div style="font-size:14px;font-weight:700;color:#1a2340;">209 / 50</div></div>
+            </div>
+            <!-- 프로그램 반영 논리 -->
+            <div style="background:#f8f9fc;border-radius:8px;padding:12px;">
+              <div style="font-size:12px;font-weight:700;color:#1a2340;margin-bottom:8px;">프로그램 반영 논리</div>
+              <div style="padding:8px 10px;background:white;border-radius:6px;margin-bottom:6px;border-left:3px solid #4a90d9;">
+                <div style="font-size:9px;font-weight:700;color:#4a90d9;margin-bottom:3px;">원칙</div>
+                <div style="font-size:10px;color:#1a2340;line-height:1.5;">논문은 직접 기억활력과 일상적 정서 자극을 지원 주장의 근거가 아니라, 비의료 웰니스 기능 설계의 근거로만 사용됩니다.</div>
+              </div>
+              <div style="padding:8px 10px;background:white;border-radius:6px;border-left:3px solid #1fa885;">
+                <div style="font-size:9px;font-weight:700;color:#1fa885;margin-bottom:3px;">Claim Boundary</div>
+                <div style="font-size:10px;color:#1a2340;line-height:1.5;">기억활력과 일상적 정서 자극을 지원 효과를 주장하지 않고, 회상 대화·정서적 지지·사회적 연결·일반 인지건강 생활정보의 설계 근거로 제한합니다.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+      function s9Tab(n){
+        for(let i=0;i<3;i++){
+          document.getElementById('s9panel-'+i).style.display=(i===n)?'flex':'none';
+          if(i===1||i===2) document.getElementById('s9panel-'+i).style.display=(i===n)?'block':'none';
+          const btn=document.getElementById('s9tab-'+i);
+          if(i===n){btn.style.background='var(--gold)';btn.style.color='var(--navy)';btn.style.border='none';}
+          else{btn.style.background='rgba(255,255,255,.07)';btn.style.color='rgba(255,255,255,.65)';btn.style.border='1px solid rgba(201,151,58,.2)';}
+        }
+      }
+      </script>
+    </div>
+    <div class="slide-num">09 / 10</div>
+  </div>
+
+  <!-- ══ SLIDE 10: 결론 ══ -->
+  <div class="slide slide-dark" id="s10">
     <div class="pad" style="display:flex;flex-direction:column;justify-content:center;height:100%;">
       <div class="s-kicker white anim">결론</div>
 
@@ -969,7 +1250,7 @@ html,body{
         </div>
       </div>
     </div>
-    <div class="slide-num">09 / 09</div>
+    <div class="slide-num">10 / 10</div>
   </div>
 
 </div><!-- #deck -->
@@ -977,12 +1258,12 @@ html,body{
 <!-- Controls -->
 <div id="controls">
   <button class="ctrl-btn" id="btn-prev" title="이전">&#8592;</button>
-  <div id="slide-counter">1 / 9</div>
+  <div id="slide-counter">1 / 10</div>
   <button class="ctrl-btn" id="btn-next" title="다음">&#8594;</button>
 </div>
 
 <script>
-const TOTAL = 9;
+const TOTAL = 10;
 let cur = 1;
 
 function goTo(n){
