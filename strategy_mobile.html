@@ -205,19 +205,19 @@ body{
 .status-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
 .status-card{
   padding:14px 12px;border-radius:12px;text-align:center;
-  background:var(--navy);border:1px solid rgba(201,151,58,.2);
+  background:var(--white);border:1px solid rgba(201,151,58,.2);
 }
-.status-card.active{border-color:var(--gold);background:rgba(201,151,58,.08);}
+.status-card.active{border-color:var(--gold);border-width:2px;background:rgba(201,151,58,.12);}
 .status-icon{font-size:22px;margin-bottom:6px;}
-.status-title{font-size:11px;font-weight:700;color:var(--gold-light);margin-bottom:3px;}
-.status-desc{font-size:9px;color:rgba(255,255,255,.45);line-height:1.4;}
+.status-title{font-size:11px;font-weight:700;color:#8A6520;margin-bottom:3px;}
+.status-desc{font-size:9px;color:#5a4a35;line-height:1.4;}
 .status-badge{
   margin-top:8px;display:inline-block;
   padding:2px 8px;border-radius:100px;
   font-size:9px;font-weight:600;
 }
 .badge-done{background:rgba(26,107,74,.2);color:#6fcf97;}
-.badge-next{background:rgba(201,151,58,.2);color:var(--gold);}
+.badge-next{background:rgba(201,151,58,.25);color:#8A6520;font-weight:700;}
 
 /* ── PILLAR CARDS ── */
 .pillar{
@@ -225,20 +225,21 @@ body{
   border:1px solid rgba(201,151,58,.18);
   margin-bottom:12px;
   position:relative;overflow:hidden;
+  background:var(--white);
 }
 .pillar::before{
   content:'';position:absolute;top:0;left:0;right:0;height:2px;
   background:linear-gradient(90deg,var(--gold),transparent);
 }
 .pillar-icon{font-size:26px;margin-bottom:10px;}
-.pillar-title{font-size:16px;font-weight:700;color:var(--white);margin-bottom:6px;}
-.pillar-body{font-size:13px;color:rgba(255,255,255,.6);line-height:1.75;}
+.pillar-title{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.pillar-body{font-size:13px;color:var(--text-mid);line-height:1.75;}
 .pillar-tag{
   display:inline-block;margin-top:10px;
   padding:4px 12px;border-radius:100px;
   font-size:10px;font-weight:500;
-  background:rgba(201,151,58,.12);color:var(--gold-light);
-  border:1px solid rgba(201,151,58,.2);
+  background:rgba(201,151,58,.15);color:var(--gold-dark,#8A6520);
+  border:1px solid rgba(201,151,58,.3);
 }
 
 /* ── FEATURE TABS ── */
@@ -518,7 +519,7 @@ body{
   <div class="status-card active reveal r3" style="text-align:center;padding:18px;">
     <div class="status-icon">🎯</div>
     <div class="status-title">한궁화(化)</div>
-    <div class="status-desc" style="color:rgba(201,151,58,.7);">한궁 DNA 이식 — 지금 진행 중</div>
+    <div class="status-desc" style="color:#8A6520;font-weight:500;">한궁 DNA 이식 — 지금 진행 중</div>
     <span class="status-badge badge-next">→ 진행 중</span>
   </div>
   <div style="margin-top:16px;padding:16px 18px;background:rgba(13,27,62,.05);border-radius:12px;border-left:3px solid var(--gold);" class="reveal r4">
